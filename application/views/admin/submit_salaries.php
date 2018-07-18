@@ -40,30 +40,41 @@
                                                 </thead>
                                                 <tbody>
 
-                                                <?php foreach ($trainer as $trainerdata): ?>
+                                                <?php  $total=0; foreach ($trainer as $trainerdata): ?>
 
                                                     <tr>
-                                                        <td><?php echo $trainerdata['trainerID'] ?></td>
-                                                        <td><?php echo $trainerdata['trainer_name']; ?></td>
-                                                        <td>
+                                    <td><?php echo $trainerdata['trainerID'] ?></td>
+                                    <td><?php echo $trainerdata['trainer_name']; ?></td>
+                                    <td>
 
-                                                        <?php
-                                                        $result_date =$trainerdata['submission_date'];
-                                                            $datestring=$result_date.' first day of last month';
-                                                            $dt=date_create($datestring);
-                                                            echo $dt->format('F');
-                                                        ?>
-                                                            
-                                                        </td>
-                                                        <td><?php echo $trainerdata['trainer_salary'] ?></td>
+                                    <?php
+                                    $result_date =$trainerdata['submission_date'];
+                                        $datestring=$result_date.' first day of last month';
+                                        $dt=date_create($datestring);
+                                        echo $dt->format('F');
+                                    ?>
+                                        
+                                    </td>
+                                    <td><?php echo $trainerdata['trainer_salary'] ?></td>
 
-                                                        <td><a href="<?php echo base_url() ?>admin/salary_submit_form/<?php echo $trainerdata['trainerID'] ?>/<?php echo $trainerdata['id'] ?>"><i class="fa fa-edit fa-2x"></i></a> 
+                                    <td><a href="<?php echo base_url() ?>admin/salary_submit_form/<?php echo $trainerdata['trainerID'] ?>/<?php echo $trainerdata['id'] ?>"><i class="fa fa-edit fa-2x"></i></a> 
                                                         <!-- <a href="<?php echo base_url() ?>admin/in_active_fee/<?php echo $trainerdata['id'];?>"><i class="fa fa-trash fa-2x"></i></a> --></td>
 
                                                     </tr>
-                                                  <?php endforeach ?>
-
+                                                  <?php 
+                       $total+=$trainerdata['trainer_salary'];
+                                              endforeach ?>
+                                            
                                                 </tbody>
+                                                   <tfoot>
+                                                       <tr>
+                                                           <th></th>
+                                                           <th></th>
+                                                           <th>Grand Total:</th>
+                                                           <th><?php echo $total; ?></th>
+                                                           <th></th>
+                                                       </tr>
+                                                   </tfoot>
                                             </table>
                                         </div>
                                     </div>

@@ -27,27 +27,28 @@
                                     <?php if ($_SESSION['role'] == 'main') {
 
                                      ?>
-                                    <div class="panel-body">
-                                        <form>
-                                            <div class="form-group row">
-                                                <label for="example-text-input" class="col-md-2 col-form-label">Select Campus</label>
-                                                <div class="col-sm-8">
-                                                    <select class="form-control" name="" id="" required="">
-                                                    <option value="">Please select</option>
-                                                    <option value="North">North</option>
-                                                    <option value="Gulshan">Gulshan</option>
-                                                    <option value="Sadar">Sadar</option>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-md-2 col-form-label">Select Campus</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="campus" id="" required="">
+                            <option value="">Please select</option>
+                            <?php foreach ($campuses as $campus): ?>
+                                <option value="<?php echo $campus['id'] ?>"><?php echo $campus['name'] ?></option>
+                            <?php endforeach ?>
 
-                                                    </select>
-                                                     
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    
-                                                    <button type="submit" class="btn btn-primary pull-left">Submit</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+
+                            </select>
+                             
+                        </div>
+                        <div class="col-sm-2">
+                            
+                            <button type="submit" class="btn btn-primary pull-left">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
                                 <?php }?>
                                     <div class="panel-body">
 

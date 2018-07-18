@@ -17,12 +17,33 @@
                                 </ol>
                             </div>
                         </div> <!-- /. Content Header (Page header) -->
-         <div class="row">
+                        <div class="row">
                             <div class="col-sm-12">
                                 <div class="panel panel-bd lobidrag">
                                     <div class="panel-heading">
                                         <div class="panel-title">
                                         </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <form>
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-md-2 col-form-label">Select Campus</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" name="" id="" required="">
+                                                    <option value="">Please select</option>
+                                                    <option value="North">North</option>
+                                                    <option value="Gulshan">Gulshan</option>
+                                                    <option value="Sadar">Sadar</option>
+
+                                                    </select>
+                                                     
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    
+                                                    <button type="submit" class="btn btn-primary pull-left">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <div class="panel-body">
 

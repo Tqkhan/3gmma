@@ -53,7 +53,11 @@
                                                         <td><?php echo $trainer['trainer_address'] ?></td>
                                                         <td><?php echo $trainer['course_title'] ?></td>
                                                         <td><?php echo $trainer['status'] ?></td>
-                                                        <td><a href="<?php echo base_url() ?>admin/edit_trainer/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-edit fa-2x"></i></a>  <a href="<?php echo base_url() ?>admin/trainer_deactivate/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-trash fa-2x"></i></a></td>
+                                                        <td>
+              <a href="<?php echo base_url() ?>admin/submit_salaries/<?php echo $trainer['trainerID'] ?>" target="_blank"><i class="fa fa-money fa-2x"></i></a> 
+                                                            <a href="<?php echo base_url() ?>admin/edit_trainer/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-edit fa-2x"></i></a> 
+                                                         <a href="<?php echo base_url() ?>admin/trainer_deactivate/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-trash fa-2x"></i></a>
+                                                     </td>
 
                                                     </tr>
                                                   <?php endforeach ?>
@@ -61,7 +65,7 @@
                                                 </tbody>
                                             </table>
 
-                                            <a href="<?php echo base_url() ?>admin/view_trainer_active" class="btn btn-info" role="button">View Active Trainer</a>
+    <a href="<?php echo base_url() ?>admin/view_trainer_active" class="btn btn-info" role="button">View Active Trainer</a>
 
 
                                         </div>

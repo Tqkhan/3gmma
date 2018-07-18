@@ -877,13 +877,14 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 						->from('trainer_salary')
 						->join('trainer', 'trainer_salary.trainerID = trainer.trainerID')
 						->where('trainer_salary.status', 0);
+						
 		$data['trainer'] = $this->db->get()->result_array();
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/trainers_salaries');
 		$this->load->view('admin/footer');
 	}
 
-	function submit_salaries()
+	function submit_salaries($id= null)
 	{
 		error_reporting(1);
 		$query = $this->db->select('trainer.trainerID,trainer.trainer_salary,trainer.trainer_name,trainer_salary.id,trainer_salary.submission_date,trainer_salary.status')
@@ -891,6 +892,9 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 						->from('trainer_salary')
 						->join('trainer', 'trainer_salary.trainerID = trainer.trainerID')
 						->where('trainer_salary.status', 1);
+						if ($id) {
+					$this->db->where('trainer_salary.trainerID', $id);
+						}
 		$data['trainer'] = $this->db->get()->result_array();
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/submit_salaries');

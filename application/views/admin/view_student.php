@@ -24,6 +24,9 @@
                                         <div class="panel-title">
                                         </div>
                                     </div>
+                                    <?php if ($_SESSION['role'] == 'main') {
+
+                                     ?>
                                     <div class="panel-body">
                                         <form>
                                             <div class="form-group row">
@@ -45,6 +48,7 @@
                                             </div>
                                         </form>
                                     </div>
+                                <?php }?>
                                     <div class="panel-body">
 
                                         <div class="table-responsive">

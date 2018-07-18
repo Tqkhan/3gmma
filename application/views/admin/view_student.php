@@ -24,7 +24,7 @@
                                         <div class="panel-title">
                                         </div>
                                     </div>
-                                    <?php if ($_SESSION['role'] =sss= 'main') {
+                                    <?php if ($_SESSION['role'] == 'main') {
 
                                      ?>
                                     <div class="panel-body">

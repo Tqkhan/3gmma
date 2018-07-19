@@ -10,7 +10,8 @@
                                 <i class="pe-7s-note2"></i>
                             </div>
                             <div class="header-title">
-                                <h1>Create Student</h1>
+                                <h1>Create Studenst</h1>
+                                <br>
                                 <ol class="breadcrumb">
                                     <li><a href="#"><i class="pe-7s-home"></i> Home</a></li>
                                     <li><a href="#">Students</a></li>

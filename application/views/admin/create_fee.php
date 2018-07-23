@@ -30,6 +30,7 @@
                                             <table id="dataTableExample2" class="table table-bordered table-striped table-hover">
                                                 <thead>
                                                     <tr>
+                                                        <th>S No.</th>
                                                         <th>Student ID</th>
                                                         <th>Student Name</th>
                                                         <th>Month</th>
@@ -39,9 +40,12 @@
                                                 </thead>
                                                 <tbody>
 
-                                                <?php foreach ($students as $student): ?>
+                                                <?php
+ $i=1;
+                                                 foreach ($students as $student): ?>
 
                                                     <tr>
+                                                        <td><?php echo $i ?></td>
                                                         <td><?php echo $student['studentID'] ?></td>
                                                         <td><?php echo $student['student_name'] ?></td>
                                                         <td>
@@ -62,10 +66,14 @@
                                                         <!-- <a href="<?php echo base_url() ?>admin/in_active_fee/<?php echo $student['id'];?>"><i class="fa fa-trash fa-2x"></i></a> --></td>
 
                                                     </tr>
-                                                  <?php endforeach ?>
+                                                  <?php 
+                                                  $i++;
+
+                                              endforeach ?>
 
                                                 </tbody>
                                             </table>
+                                           
                                         </div>
                                     </div>
                                 </div>

@@ -1,5 +1,7 @@
 
 <?php $con=0; ?>
+
+
 <?php foreach($student as $students ){ ?>
 
             <div class="content-wrapper">
@@ -13,6 +15,7 @@
                             </div>
                             <div class="header-title">
                                 <h1>Edit Student</h1>
+                                <br>
                                 <ol class="breadcrumb">
                                     <li><a href="#"><i class="pe-7s-home"></i> Home</a></li>
                                     <li><a href="#">Student</a></li>
@@ -33,13 +36,13 @@
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Student Name</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" value="<?php echo $students['student_name'] ?>" name="student_name" placeholder="Student Name " type="text" required="" id="example-text-input">
+                                                <input class="form-control" value="<?php echo $students['student_name'] ?>" name="student_name" placeholder="Student Name " type="text"  id="example-text-input">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Date of Birth</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" value="<?php echo $students['dob'] ?>" name="dob" placeholder="Student Name " type="text" required="" id="bday">
+                                                <input class="form-control" value="<?php echo $students['dob'] ?>" name="dob" placeholder="Student Name " type="text"  id="bday">
                                             </div>
                                         </div>
 
@@ -80,34 +83,34 @@
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Contact Number</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" value="<?php echo $students['student_contact'] ?>" name="student_contact" placeholder="Contact Number " type="text" required="" id="example-text-input" />
+                                                <input class="form-control" value="<?php echo $students['student_contact'] ?>" name="student_contact" placeholder="Contact Number " type="text"  id="example-text-input" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Email  </label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" value="<?php echo $students['student_email'] ?>" name="student_email"  required="" placeholder="Email  " type="email" id="example-text-input">
+                                                <input class="form-control" value="<?php echo $students['student_email'] ?>" name="student_email"   placeholder="Email  " type="email" id="example-text-input">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Address</label>
                                             <div class="col-sm-9">
-                                                <textarea class="form-control" name="student_address" placeholder="Address " type="text" required="" id="example-text-input" ><?php echo $students['student_address'] ?></textarea>
+                                                <textarea class="form-control" name="student_address" placeholder="Address " type="text"  id="example-text-input" ><?php echo $students['student_address'] ?></textarea>
                                             </div>
                                         </div>
 
 <div class="form-group row">
 <label for="example-text-input" class="col-sm-3 col-form-label">Student C.N.I.C</label>
 <div class="col-sm-9">
-<input class="form-control cnic" name="student_cnic" placeholder="Student CNIC" type="text" required="" id="" value="<?php echo $students['student_cnic']; ?>" >
+<input class="form-control cnic" name="student_cnic" placeholder="Student CNIC" type="text"  id="" value="<?php echo $students['student_cnic']; ?>" >
 </div>
 </div>
 <div class="form-group row">
 <label for="example-text-input" class="col-sm-3 col-form-label">Student Education</label>
 <div class="col-sm-9">
-<input class="form-control" name="education" placeholder="Student Education" type="text" required="" id="" value="<?php echo $students['education']; ?>" >
+<input class="form-control" name="education" placeholder="Student Education" type="text"  id="" value="<?php echo $students['education']; ?>" >
 </div>
 </div>
 
@@ -115,8 +118,23 @@
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">WhatsApp Number</label>
                                             <div class="col-sm-9">
-                                                <textarea class="form-control" name="home_phone" placeholder="number" type="text" required="" id="example-text-input" ><?php echo $students['home_phone'] ?></textarea>
+                                                <textarea class="form-control" name="home_phone" placeholder="number" type="text"  id="example-text-input" ><?php echo $students['home_phone'] ?></textarea>
                                             </div>
+                                        </div>
+                                         <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Select Campus</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control select ddl2" name="campusID" id="" >
+                                                    <option value="Select Campus">Select Campus</option>
+                                                     <?php foreach ($campus as $camp): ?>
+                                                   <option  value="<?php echo $camp['id'] ?>"<?php if($camp['id']== $students['campusID']) echo 'selected' ?>><?php echo $camp['name'] ?></option>
+                                               <?php endforeach ?> 
+
+
+
+                                                </select>
+                                            </div>
+
                                         </div>
 
 
@@ -159,7 +177,7 @@
 <div class="form-group row">
     <label for="example-text-input" class="col-sm-3 col-form-label">Shift </label>
     <div class="col-sm-9">
-        <select class="form-control select" name="course_shift"  required="" type="text" id="example-text-input">
+        <select class="form-control select" name="course_shift"   type="text" id="example-text-input">
        <option value="">Select Shift</option>
        <option value="Morning" <?php if($course['course_shift']=="Morning") echo "selected" ?>>Morning</option>
        <option value="Evening" <?php if($course['course_shift']=="Evening") echo "selected" ?>>Evening</option>
@@ -169,7 +187,7 @@
 <div class="form-group row">
 <label for="example-text-input" class="col-sm-3 col-form-label">Select Course </label>
 <div class="col-sm-9 dataclass">
-<select class="form-control select coursedataID" name="courseID[]"  type="text" id="clearclass1" required="">
+<select class="form-control select coursedataID" name="courseID[]"  type="text" id="clearclass1" >
 <option value="">Select Courses</option>
 <?php foreach($courses as $all_courses){ ?>
 <option value="<?php echo $all_courses['courseID']; ?>" <?php if($course_title['course_ID'][$i] == $all_courses['courseID']) echo 'selected' ?>><?php echo $all_courses['course_title']; ?></option>
@@ -182,14 +200,14 @@
 <div class="form-group row">
 <label for="example-text-input" class="col-sm-3 col-form-label">Select Trainer </label>
 <div class="col-sm-9">
-<!-- <select class="form-control select" name="trainerID[]"  type="text" id="example-text-input" required="">
+<!-- <select class="form-control select" name="trainerID[]"  type="text" id="example-text-input" >
 <option value="">Select Courses</option>                                                                                      
 <?php foreach($trainers as $all_trainer){ ?>
 <option value="<?php echo $all_trainer['trainerID']; ?>" <?php if($course_title['trainerID_data'][$i] == $all_trainer['trainerID'] ) echo 'selected' ?>><?php echo $all_trainer['trainer_name']; ?></option>
 <?php } ?>
 </select> -->
 
-<select class="form-control select ddltrainer"  name="trainerID[]"  type="text" id="ddltrainer" required="">
+<select class="form-control select ddltrainer"  name="trainerID[]"  type="text" id="ddltrainer" >
 <option value="<?php echo $all_trainer['trainerID']; ?>"   class="myselect" ><?php echo $course_title['trainer'][$i]; ?></option>
 </select>
 
@@ -199,7 +217,7 @@
 
 <label for="example-text-input" class="col-sm-3 col-form-label">Select Timing</label>
 <div class="col-sm-9">
-<select class="form-control select ddl" name="gym_timing[]"  id="ddl" required >
+<select class="form-control select ddl" name="gym_timing[]"  id="ddl"  >
 <option value="<?php echo $course_title['course_timing'][$i]; ?>" class="myselect" ><?php echo $course_title['course_timing'][$i]; ?></option>
 </select>
 </div>
@@ -213,7 +231,7 @@
 <option value="<?php echo $course_title['fee'][$i]; ?>" class="myselect" ><?php echo $course_title['fee'][$i]; ?></option>
 </select> -->
 
-<select class="form-control select ddl2" name="fee[]" id="ddl2" required>
+<select class="form-control select ddl2" name="fee[]" id="ddl2" >
 <option value="<?php echo $course_title['fee'][$i]; ?>" class="myselect"><?php echo $course_title['fee'][$i]; ?></option>
 </select>
 
@@ -347,7 +365,7 @@
 <div class="form-group row">
 <label for="example-text-input" class="col-sm-3 col-form-label">Status</label>
 <div class="col-sm-9">
-<select class="form-control select" name="status"  type="text" id="courseID" required="">
+<select class="form-control select" name="status"  type="text" id="courseID" >
 <option value="">Change Status</option>
 <option  value="active" id="active">active</option>
 <option  value="in_active" id="in_active">in_active</option>

@@ -124,8 +124,9 @@ class Admin extends CI_Controller
 	{
 		$this->is_login();
 
-		$data['courses']=$this->admin_model->get_where_single("course",array('campus_id'=>$_SESSION['campus_id']));
+		$data['courses']=$this->admin_model->get("trainer");
 		$data['trainers']=$this->admin_model->get("trainer");
+		$data['campus']=$this->admin_model->get("campus");
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/create_user');
 		$this->load->view('admin/footer');
@@ -278,7 +279,7 @@ else if( $id != null && $month_id == null )
 			->join("course",'course.courseID = students_courses.courseID')
 			->join("student",'student.studentID = userattendence.studentID')
 			->where('course.courseID', $id)
-			->where('course.campus_id', $_SESSION['campus_id']);
+			->where('students_courses.campusID', $_SESSION['campus_id']);
 			$textdata['data_attendence'] = $this->db->get()->result_array();
 }
 else if( $id != null && $month_id != null )
@@ -300,7 +301,7 @@ else if( $id != null && $month_id != null )
 			->where('userattendence.checkin_date >=', $first_date)
 			->where('userattendence.checkin_date <=', $last_date)
 			->where('course.courseID', $id)
-			->where('course.campus_id', $_SESSION['campus_id'])
+			->where('students_courses.campusID', $_SESSION['campus_id'])
 			->group_by('userattendence.id');
 			$textdata['data_attendence'] = $this->db->get()->result_array();
 			// echo'<pre>';print_r($textdata['data_attendence']);die();
@@ -313,7 +314,7 @@ else
 			->join("userattendence AS b",'a.studentID = b.studentID')
 			->join("students_courses AS c","find_in_set(c.studentID, b.studentID)","left",false)
 			->join('course AS d', 'd.courseID = c.courseID', 'left')
-			->where('d.campus_id', $_SESSION['campus_id'])
+			->where('c.campusID', $_SESSION['campus_id'])
 			->group_by('a.studentID');
 
 			$textdata['data_attendence'] = $this->db->get()->result_array();
@@ -429,11 +430,11 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 						->join('students_courses', 'student.studentID = students_courses.studentID', 'left')
 						->join('course', 'course.courseID = students_courses.courseID', 'left')
 						->join('trainer', 'trainer.trainerID=students_courses.trainerID', 'left')
-						->join('campus','course.campus_id = campus.id', 'left')
+						->join('campus','campus.id = students_courses.campusID', 'left')
 						->order_by("student.studentID",'DESC')
 						->group_by('student.studentID');
 						
-						    $this->db->where('course.campus_id', $_GET['campus']);
+						    $this->db->where('students_courses.campusID', $_GET['campus']);
 			}
             else{
 		$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,campus.name AS campus')
@@ -441,11 +442,11 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 						->join('students_courses', 'student.studentID = students_courses.studentID', 'left')
 						->join('course', 'course.courseID = students_courses.courseID', 'left')
 						->join('trainer', 'trainer.trainerID=students_courses.trainerID', 'left')
-						->join('campus','course.campus_id = campus.id', 'left')
+						->join('campus','campus.id = students_courses.campusID', 'left')
 						->order_by("student.studentID",'DESC')
 						->group_by('student.studentID');
 						if ($_SESSION['main'] == "0") {
-						    $this->db->where('course.campus_id', $_SESSION['campus_id']);
+						    $this->db->where('students_courses.campusID', $_SESSION['campus_id']);
 						} 
 					}
 
@@ -548,7 +549,7 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 	public function view_course()
 	{
 		$this->is_login();
-		$data['courses']=$this->admin_model->get_where_single("course",array('campus_id'=>$_SESSION['campus_id']));
+		$data['courses']=$this->admin_model->get("course");
 		$data['title']="View Course";
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/view_course');
@@ -582,7 +583,7 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 	public function create_trainer()
 	{
 		$this->is_login();
-		$data['courses']=$this->admin_model->raw_query("select * from course where campus_id = ".$_SESSION['campus_id'],1);
+		$data['courses']=$this->admin_model->raw_query("select * from course ",1);
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/create_trainer');
 		$this->load->view('admin/footer');
@@ -627,7 +628,7 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 		$this->is_login();
 		$where=array('studentID'=>$studentID);
 
-$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,GROUP_CONCAT(students_courses.Timing SEPARATOR ",") AS course_timing,GROUP_CONCAT(students_courses.Fee SEPARATOR ",") AS course_fee,GROUP_CONCAT(students_courses.courseID SEPARATOR ",") AS course_ID,GROUP_CONCAT(students_courses.TrainerID SEPARATOR ",") AS trainer_ID,GROUP_CONCAT(students_courses.id SEPARATOR ",") AS course_data_ID,GROUP_CONCAT(students_courses.TrainerID SEPARATOR ",") AS TrinerID_data_ID')
+$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,GROUP_CONCAT(students_courses.Timing SEPARATOR ",") AS course_timing,GROUP_CONCAT(students_courses.Fee SEPARATOR ",") AS course_fee,GROUP_CONCAT(students_courses.courseID SEPARATOR ",") AS course_ID,GROUP_CONCAT(students_courses.TrainerID SEPARATOR ",") AS trainer_ID,GROUP_CONCAT(students_courses.id SEPARATOR ",") AS course_data_ID,GROUP_CONCAT(students_courses.TrainerID SEPARATOR ",") AS TrinerID_data_ID, students_courses.campusID')
 						->from('student')
 						->join('students_courses', 'student.studentID = students_courses.studentID')
 						->join('course', 'course.courseID = students_courses.courseID')
@@ -642,8 +643,10 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 // echo '<pre>';print_r($data['students_courses']);die();
 		$data['title']="Edit Student";
 		$data['courses']=$this->admin_model->get_where_single("course",array('campus_id'),$_SESSION['campus_id']);
+		$data['campus']=$this->admin_model->get("campus");
 		$data['trainers']=$this->admin_model->get("trainer");
 		$this->load->view('admin/header',$data);
+		//print_r($data['campus']);die();
 		$this->load->view('admin/edit_student');
 		$this->load->view('admin/footer');
 	}
@@ -956,18 +959,30 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 	}
 	public function view_fees($id= null)
 	{
+		
 		//$data['fees']=$this->admin_model->get("student_fee");
 		$this->db->select('sf.*')
 				 ->from('student_fee sf')
 				 ->join('student s', 's.studentID = sf.studentID')
 				 ->join('students_courses sc', 'sc.studentID = s.studentID')
 				 ->join('course c', 'c.courseID = sc.courseID');
-				  if (!$id) {
-				  	 $this->db->where('c.campus_id',$_SESSION['campus_id'])
-				     ->group_by('s.studentID');
+				   if ($id==null) {
+				   	if($_SESSION['campus_id']!=0){
+				  	 $this->db->where('sc.campusID',$_SESSION['campus_id'])
+				      ->group_by('s.studentID');
+				   	}
+				   }else{
+				   	if($_SESSION['campus_id']){
+
+				  	$this->db->where('s.studentID',$id)
+				  	->where('sc.campusID',$_SESSION['campus_id'])
+				  	->group_by('s.studentID');
 				  }else{
-				  	$this->db->where('s.studentID',$id);
+				$this->db->where('s.studentID',$id)->group_by('s.studentID')
+				  	->group_by('s.studentID');
 				  }
+				   }
+				  // }
 				
 
 
@@ -1006,9 +1021,12 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 						->join('students_courses', 'students_courses.studentID = student.studentID', 'left')
 						->join('course', 'course.courseID = students_courses.courseID', 'left')
 						->join('pending_students_fees', 'student.studentID = pending_students_fees.studentID')
-						->where('pending_students_fees.status', 0)
-						->where('course.campus_id',$_SESSION['campus_id'])
-						->group_by('student.studentID');
+						->where('pending_students_fees.status', 0);
+						if ($_SESSION['campus_id']!=0) {
+						
+						$this->db->where('students_courses.campusID',$_SESSION['campus_id']);
+						}
+						$this->db->group_by('student.studentID');
 		$data['students'] = $this->db->get()->result_array();
 		// echo '<pre>';print_r($query);die();
 		$this->load->view('admin/header',$data);
@@ -1023,7 +1041,11 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 		$this->is_login();
 		$where=array('studentID'=>$studentID);
 		$where_pending=array('id'=>$pendingfeeID,'studentID'=>$studentID);
-		$data['student']=$this->admin_model->get_row("student",$where);
+		$data['student']=$this->db->query('SELECT `student`.*, GROUP_CONCAT(course.courseID SEPARATOR ", ") AS course_id, GROUP_CONCAT(trainer.trainerID SEPARATOR ", ") AS trainerID FROM `student` INNER JOIN `students_courses` ON `student`.`studentID` = `students_courses`.`studentID` INNER JOIN `course` ON `course`.`courseID` = `students_courses`.`courseID` 
+			inner join trainer on students_courses.trainerID=trainer.trainerID WHERE `student`.`studentID` ='.$studentID)->row_array();
+
+
+
 		$data['fee_detail']=$this->admin_model->get_row("pending_students_fees",$where_pending);
 		$data['title']="Edit Student";
 		$data['courses']=$this->admin_model->get("course");
@@ -1170,9 +1192,9 @@ $data=$_POST;
 
 $config['upload_path']          = 'uploads/userimage/';
 $config['allowed_types']        = 'gif|jpg|png';
-$config['max_size']             = 2000;
-$config['max_width']            = 1024;
-$config['max_height']           = 768;
+$config['max_size']             = 42000;
+$config['max_width']            = 41024;
+$config['max_height']           = 4768;
 $this->load->library('upload', $config);
 // put input field name below condition === Here name is profile_image
  if (!$this->upload->do_upload('profile_image'))
@@ -1199,6 +1221,7 @@ $data['qr'] = $qr;
 
 	unset($data['courseID']);
 	unset($data['gym_timing']);
+	unset($data['campusID']);
 	unset($data['course_shift']);
 	unset($data['trainerID']);
 	unset($data['fee']);
@@ -1214,6 +1237,7 @@ for($i= 0; $i < $count_array_course; $i++)
 		'studentID' => $id,
 		'courseID'=>$data_unset['courseID'][$i],
 		'Timing'=>$data_unset['gym_timing'][$i],
+		'campusID'=>$data_unset['campusID'][$i],
 		'course_shift'=>$data_unset['course_shift'][$i],
 		'TrainerID'=>$data_unset['trainerID'][$i],
 		'Fee'=>$data_unset['fee'][$i]
@@ -1786,6 +1810,7 @@ function updatemultitrainer(){
 		unset($data['gym_timing']);
                 unset($data['course_shift']);
 		unset($data['trainerID']);
+		unset($data['campusID']);
 		unset($data['fee']);
 		unset($data['scid']);
 		if($data['past_experience'] == 'no' ){
@@ -1800,7 +1825,8 @@ function updatemultitrainer(){
 			'studentID' =>$id,
 			'courseID'=>$data_unset['courseID'][$i],
 			'Timing'=>$data_unset['gym_timing'][$i],
-                        'course_shift'=>$data_unset['course_shift'][$i],
+            'course_shift'=>$data_unset['course_shift'][$i],
+                 'campusID'=>$data_unset['campusID'][$i],
 			'TrainerID'=>$data_unset['trainerID'][$i],
 			'Fee'=>$data_unset['fee'][$i]
 			);

@@ -70,124 +70,210 @@ tfoot td {
   color: #8a97a0;
 }
 
-
+td{
+  white-space: nowrap !important;
+}
 
 
 </style>
 
-
+<style type="text/css">
+  .text-danger strong {
+        color: #9f181c;
+    }
+    .receipt-main {
+      background: #ffffff none repeat scroll 0 0;
+      border-bottom: 12px solid #333333;
+      border-top: 12px solid #9f181c;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      padding: 40px 30px !important;
+      position: relative;
+      box-shadow: 0 1px 21px #acacac;
+      color: #333333;
+      font-family: open sans;
+    }
+    .receipt-main p {
+      color: #333333;
+      font-family: open sans;
+      line-height: 1.42857;
+    }
+    .receipt-footer h1 {
+      font-size: 15px;
+      font-weight: 400 !important;
+      margin: 0 !important;
+    }
+    .receipt-main::after {
+      background: #414143 none repeat scroll 0 0;
+      content: "";
+      height: 5px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: -13px;
+    }
+    .receipt-main thead {
+      background: #414143 none repeat scroll 0 0;
+    }
+    .receipt-main thead th {
+      color:#fff;
+    }
+    .receipt-right h5 {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 0 7px 0;
+    }
+    .receipt-right p {
+      font-size: 12px;
+      margin: 0px;
+    }
+    .receipt-right p i {
+      text-align: center;
+      width: 18px;
+    }
+    .receipt-main td {
+      padding: 9px 20px !important;
+    }
+    .receipt-main th {
+      padding: 13px 20px !important;
+    }
+    .receipt-main td {
+      font-size: 13px;
+      font-weight: initial !important;
+    }
+    .receipt-main td p:last-child {
+      margin: 0;
+      padding: 0;
+    } 
+    .receipt-main td h2 {
+      font-size: 20px;
+      font-weight: 900;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .receipt-header-mid .receipt-left h1 {
+      font-weight: 100;
+      margin: 34px 0 0;
+      text-align: right;
+      text-transform: uppercase;
+    }
+    .receipt-header-mid {
+      margin: 24px 0;
+      overflow: hidden;
+    }
+    
+    #container {
+      background-color: #dcdcdc;
+    }
+</style>
 </head>
 <body id="content">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-   <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="panel-body print-div">
-                                            <div class="row">
-                                                
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        
-                                                        <div class="col-lg-4">
-                <img src="<?php base_url();?>assets/assets/dist/img/header.png">
-                                                        </div>
-
-                                                    </div>
-                                                   
-                                                </div>
-
-
-<caption>Fee Voucher</caption>
-
-
-<caption style="text-align:center;font-size: 17px;"><b>Student Name</b> : <span><?php echo $expense_data['student_name']; ?></span></caption>
-<caption style="text-align:center;font-size: 17px;"><b>Submission Date</b> : <span><?php echo $expense_data['submission_date']; ?></span></caption>
-<caption style="text-align:center;font-size: 17px;"><b>Email</b> : <span><?php echo $expense_data['student_email']; ?></span></caption>
-<caption style="text-align:center;font-size: 17px;"><b>Contact</b> : <span><?php echo $expense_data['student_contact']; ?></span></caption>
-<br><br>
-   <table align="center">
-      
-
-      <thead> <!-- Table Header -->
-        <tr> 
-           <!-- TH = Table Header -->
-          <th scope="col" colspan="2">Detail</th>
-          
- 
-        </tr>
-      </thead>
-      <tfoot>
-        <tr>
-          
-        </tr>
-      </tfoot>
-      <tbody> <!-- Table Body for content -->
-      
-        <tr>
+<div class="container">
+    <div class="row">
         
-        <td>Student Fee Description</td> 
-        <td><?php echo $expense_data['student_address']; ?></td> 
-        
-             
-      </tr>
-      <tr>
-        
-        <td>Fee Amount</td> 
-       
-        <td><span class="total"><?php echo $expense_data['student_fee']; ?></span></td>       
-             
-      </tr>
-      <tr>
-        
-        <td>Admission Fee</td> 
-        <td><span class="total"><?php echo $expense_data['admission_fee']; ?></span></td>  
-             
-             
-      </tr>
-      <tr>
-        
-        <td>Membership Fee</td> 
-        <td><span class="total"><?php echo $expense_data['membership_fee']; ?></span></td>  
-             
-             
-      </tr>
-      <tr>
-        
-        <td>Extra Charges</td> 
-        <td><span class="total"><?php echo $expense_data['extra_charges']; ?></span></td>  
-             
-             
-      </tr>
-  
-  <tr>
-        
-        <td>Discount Fee</td> 
-        <td><span class="total"><?php echo $expense_data['discountfee']; ?></span></td>       
-             
-      </tr>
-       <tr>
-        
-        <td>Total</td> 
-        <td><span class="total"><?php echo $expense_data['total']; ?></span></td>       
-             
-      </tr> 
-      
-    
-  
-     </tbody>
-    </table>
-
-        
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                    <img src="<?php base_url();?>assets/assets/dist/img/footer.png">
-                                </div>
-                             </div>                   
-                          </div>
-                       </div>
-                  </div>
-                </div>     
+        <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="receipt-header">
+                  <img class="img-responsive" alt="iamgurdeeposahan" src="<?php base_url();?>assets/assets/dist/img/header.png" style="width: 1121px; border-radius: 43px;">
+                  <br>
+                    <div class="col-xs-6 col-sm-6 col-md-6 ">
+                        <div class="receipt-right">
+                            <h5>Name : <?php echo $expense_data['student_name']; ?>.</h5>
+                            <h6>Mobile :</b>ssss <?php echo $expense_data['student_email']; ?></h6>
+                            <h6>Email :</b>ssss <?php echo $expense_data['student_email']; ?></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+            <div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                   <tbody> <!-- Table Body for content -->
+                         
+                           <tr>
+                           
+                           <td>Student Fee Description</td> 
+                           <td><?php echo $expense_data['student_address']; ?></td> 
+                           
+                                
+                         </tr>
+                         <tr>
+                           
+                           <td>Fee Amount</td> 
+                          
+                           <td><span class="total"><?php echo $expense_data['student_fee']; ?></span></td>       
+                                
+                         </tr>
+                         <tr>
+                           
+                           <td>Admission Fee</td> 
+                           <td><span class="total"><?php echo $expense_data['admission_fee']; ?></span></td>  
+                                
+                                
+                         </tr>
+                         <tr>
+                           
+                           <td>Membership Fee</td> 
+                           <td><span class="total"><?php echo $expense_data['membership_fee']; ?></span></td>  
+                                
+                                
+                         </tr>
+                         <tr>
+                           
+                           <td>Extra Charges</td> 
+                           <td><span class="total"><?php echo $expense_data['extra_charges']; ?></span></td>  
+                                
+                                
+                         </tr>
+                     
+                     <tr>
+                           
+                           <td>Discount Fee</td> 
+                           <td><span class="total"><?php echo $expense_data['discountfee']; ?></span></td>       
+                                
+                         </tr>
+                          <tr>
+                           
+                           <td>Total</td> 
+                           <td><span class="total"><?php echo $expense_data['total']; ?></span></td>       
+                                
+                         </tr> 
+                         
+                       
+                     
+                        </tbody>
+                </table>
+            </div>
+            
+            <div class="row">
+                <div class="receipt-header receipt-header-mid receipt-footer">
+                    <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                        <div class="receipt-right">
+                            <p><b>Submission Date :</b> <?php echo $expense_data['submission_date']; ?></p>
+                            <h5 style="color: rgb(140, 140, 140);">Thank you!</h5>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <img class="img-responsive" alt="iamgurdeeposahan" src="<?php base_url();?>assets/assets/dist/img/footer.png" style="width: 1121px; border-radius: 43px;">
+        </div>    
+    </div>
+</div>
+     
 </body>
 <div id="editor"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

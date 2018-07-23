@@ -32,6 +32,8 @@
                                             <table id="dataTableExample2" class="table table-bordered table-striped table-hover">
                                                 <thead>
                                                     <tr>
+                                                        <th>S No.</th>
+                                                        
                                                         <th>StudentID</th>
                                                         <th>Fees</th>
                                                         <th>Month of Fees</th>
@@ -45,9 +47,11 @@
                                                 <tbody>
 												<?php 
                                                  $total=0;
+                                                  $i=1;
                                                 foreach ($fees as $fee): ?>
 
    														<tr>
+                                                        <td><?php echo $i ?></td>
 
                                                         <td><?php echo $fee['studentID'] ?></td>
                                                         <td><?php echo $fee['student_fee'] ?></td>
@@ -63,6 +67,7 @@
                                                     </tr>
 													<?php
                                                      $total+=$fee['total'];
+                                                      $i++;
                                                      endforeach ?>
                                                        <tfoot>
                                                            <tr>

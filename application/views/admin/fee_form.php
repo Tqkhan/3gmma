@@ -71,12 +71,18 @@
 										</div>
 
 										 <div class="form-group row">
+
+
+										 	
 											<label for="example-text-input" class="col-sm-3 col-form-label">Enrolled Course </label>
 											<div class="col-sm-9">
-												<select class="form-control select" name="courseID"  type="text" id="example-text-input" readonly>
+												<select class="form-control select" name="courseID"  type="text" id="example-text-input" multiple="" readonly>
 											   <option value="">Select Course</option>
-											   <?php foreach ($courses as $course): ?>
-												   <option value="<?php echo $course['courseID'] ?>" <?php if($course['courseID']==$student['courseID']) echo "selected";  ?>><?php echo $course['course_title'] ?></option>
+											   <?php
+
+                                           $enrolled_courses= explode(',', $student['course_id']);
+											    foreach ($courses as $course): ?>
+												   <option value="<?php echo $course['courseID'] ?>" <?php if(in_array($course['courseID'],$enrolled_courses)) echo "selected";  ?>><?php echo $course['course_title'] ?></option>
 											   <?php endforeach ?>
 												 </select>
 											</div>
@@ -84,10 +90,13 @@
 										 <div class="form-group row">
 											<label for="example-text-input" class="col-sm-3 col-form-label">Trainer </label>
 											<div class="col-sm-9">
-												<select class="form-control select" name="trainerID"  type="text" id="example-text-input" readonly>
+												<select class="form-control select" name="trainerID"  type="text" id="example-text-input" readonly multiple="">
 											   <option value="">Select Trainer</option>
-											   <?php foreach ($trainers as $trainer): ?>
-												   <option <?php if($trainer['trainerID']==$student['trainerID']) echo "selected";  ?> value="<?php echo $trainer['trainerID'] ?>" ><?php echo $trainer['trainer_name'] ?></option>
+											   <?php
+
+                                           $courses_trainer= explode(',', $student['trainerID']);
+											    foreach ($trainers as $trainer): ?>
+												   <option value="<?php echo $trainer['trainerID'] ?>" <?php if(in_array($trainer['trainerID'],$courses_trainer)) echo "selected";  ?>><?php echo $trainer['trainer_name'] ?></option>
 											   <?php endforeach ?>
 												 </select>
 											</div>
@@ -141,6 +150,9 @@
 									   </form>
 									</div>
 								</div>
+							</div>
+							</div>
+							</div>
 							</div>
 						</div>
 

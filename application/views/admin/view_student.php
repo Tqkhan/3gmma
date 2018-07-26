@@ -104,7 +104,7 @@
 
                                             </table>
                                             <br>
-<span class="pull-right"><p><b>Total Students</b> : <?php echo $length_of_rows; ?></p></span>
+<span class="pull-right"><p><b style="color:darkolivegreen;font-weight:bold">Total Students : <?php echo $length_of_rows; ?></b></p></span>
  <a href="<?php echo base_url() ?>admin/view_active_students" class="btn btn-info" role="button">View Active Students</a>
  <a href="<?php echo base_url() ?>admin/view_inactive_students" class="btn btn-info" role="button">View In Active Students</a>
 

@@ -101,7 +101,12 @@
 												 </select>
 											</div>
 										</div>
-
+										<div class="form-group row">
+											<label for="example-text-input" class="col-sm-3 col-form-label">Admission Fee  </label>
+											<div class="col-sm-9">
+												<input class="form-control" value="<?php echo $student['admission_fee'] ?>" name="admission_fee"   placeholder="Admission Fee  " type="Admission Fee" id="example-text-input" readonly>
+											</div>
+										</div>
 										<div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Month Of Fee</label>
                                             <div class="col-sm-9">

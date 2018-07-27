@@ -1153,7 +1153,7 @@ $this->admin_model->update('pending_students_fees',array('status' => 1),array('i
 	public function insert_course()
 	{
 		$data=$_POST;
-		$data['campus_id'] = $_SESSION['campus_id'];
+		//$data['campus_id'] = $_SESSION['campus_id'];
 
 		if ($this->admin_model->insert($data,"course")) {
 

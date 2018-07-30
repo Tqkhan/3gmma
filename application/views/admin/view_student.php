@@ -1,3 +1,7 @@
+<?php 
+ // print_r($students);die();
+?>
+
             <div class="content-wrapper">
                 <div class="container">
                     <!-- main content -->
@@ -23,6 +27,56 @@
                                     <div class="panel-heading">
                                         <div class="panel-title">
                                         </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <form>
+                                            <div class="form-group row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">Select Shift</label>
+                                                <select class="form-control select shift newt " name="course_shift" type="text" id="example-text-input">
+                                                    <option value="">Select Shift</option>
+                                                    <option value="Morning">Morning</option>
+                                                    <option value="Evening">Evening</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">Select Shift</label>
+                                                <select class="form-control select coursedataID" name="courseID" type="text" id="courseID">
+                                                    <option value="">Select Course</option>
+                                                    <option value="" class="myselect"></option>
+                                                    <!--  <?php foreach ($courses as $course): ?>
+                                                   <option  value="<?php echo $course['courseID'] ?>" id="<?php echo $course['courseID']; ?>"><?php echo $course['course_title'] ?></option>
+                                               <?php endforeach ?> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">Select Time</label>
+                                               <select class="form-control select ddl" name="gym_timing" id="ddl" >
+                                                    <option value="" class="myselect"></option>
+
+                                                </select>
+                                            </div>
+                                        </div>   
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                </br>
+                                                <button style="margin-top: 6px;" type="submit" class="form-control btn btn-primary pull-left" name="filter" value="filter">Search</button>
+                                            </div>
+                                        </div>    
+                                        
+                                            </div>
+                                         
+
+                                        
+                                        
+                                        
+                                    
+                                        </form>
                                     </div>
                                     <?php if ($_SESSION['role'] == 'main') {
 
@@ -64,6 +118,7 @@
                                                         <th>Course Enrolled</th>
                                                         <th>Trainer</th>
                                                         <th>Status</th>
+                                                        <th>Shift</th>
                                                         <th>Campus</th>
                                                         <th>Actions?</th>
                                                     </tr>
@@ -81,7 +136,8 @@
 
                                                         <td><?php echo $student['course_title'] ?></td>
                                                         <td><?php echo $student['trainer'] ?></td>
-                                                         <td><?php echo $student['status'] ?></td>
+                                                        <td><?php echo $student['status'] ?></td>
+                                                        <td><?php echo $student['course_shift'] ?></td>
                                                          <td><?php echo $student['campus'] ?></td>
     <td><a href="<?php echo base_url() ?>admin/edit_student/<?php echo $student['studentID'] ?>"><i class="fa fa-edit fa-2x"></i></a>
 
@@ -119,4 +175,88 @@
                 </div> <!-- /.container -->
             </div> <!-- /.content-wrapper -->
             <!-- start footer -->
+<script type="text/javascript">
 
+                    $(document).ready(function () {
+                        function change_course() {
+                            $(".shift").change(function() {
+                                var shift = $(this).val();
+                                var th = $(this)
+                                var select = th.parent().parent().parent()
+                                $.ajax({
+                                    url: "<?php echo base_url(); ?>admin/get_coarse_selectbox",
+                                    data: {
+                                        id: shift
+                                    },
+                                    type: 'POST',
+                                    dataType: 'json', // added data type
+                                    success: function(res) {
+                                        select.find('.coursedataID').empty()
+                                        select.find('.coursedataID').append('<option value="">Select Course</option>')
+                                        for (var i = 0; i < res.length; i++) {
+                                            select.find('.coursedataID').append('<option value="' + res[i].courseID + '">' + res[i].course_title + '</option>')
+                                        }
+
+                                    }
+                                });
+                            });
+                            $(".coursedataID").change(function() {
+                                var dataget = $(this).val();
+                                var th = $(this)
+                                var select = th.parent().parent().parent()
+                                $.ajax({
+                                    url: "<?php echo base_url(); ?>admin/get_fee_selectbox",
+                                    data: {
+                                        id: dataget
+                                    },
+                                    type: 'POST',
+                                    dataType: 'json', // added data type
+                                    success: function(res) {
+                                        console.log(res)
+                                        select.find('.ddl2').empty()
+                                        select.find('.ddl2').append('<option value="">Select Fee</option>')
+                                        for (var i = 0; i < res.length; i++) {
+                                            select.find('.ddl2').append('<option value="' + res[i]['course_price'] + '">' + res[i]['course_price'] + '</option>')
+                                        }
+
+                                    }
+                                });
+                                $.ajax({
+                                    url: "<?php echo base_url(); ?>admin/get_trainer_selectbox",
+                                    data: {
+                                        id: dataget
+                                    },
+                                    type: 'POST',
+                                    dataType: 'json', // added data type
+                                    success: function(res) {
+                                        console.log(res)
+                                        select.find('.ddltrainer').empty()
+                                        select.find('.ddltrainer').append('<option value="">Select Trainer</option>')
+                                        for (var i = 0; i < res.length; i++) {
+                                            select.find('.ddltrainer').append('<option value="' + res[i]['trainerID'] + '">' + res[i]['trainer_name'] + '</option>')
+                                        }
+
+                                    }
+                                });
+                                $.ajax({
+                                    url: "<?php echo base_url(); ?>admin/getdata_selectbox",
+                                    data: {
+                                        id: dataget
+                                    },
+                                    type: 'POST',
+                                    dataType: 'json', // added data type
+                                    success: function(res) {
+                                        console.log(res)
+                                        select.find('.ddl').empty()
+                                        select.find('.ddl').append('<option value="">Select Timing</option>')
+                                        for (var i = 0; i < res.length; i++) {
+                                            select.find('.ddl').append('<option value="' + res[i] + '">' + res[i] + '</option>')
+                                        }
+
+                                    }
+                                });
+                            });
+                        }
+                        change_course() 
+                    });
+            </script>

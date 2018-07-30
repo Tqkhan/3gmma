@@ -1166,11 +1166,16 @@ $expense_salary_data = array(
 		$ID = $data['studentID'];
 		$PendindID = $data['pendingID'];
 		unset($data['pendingID']);
+		unset($data['is_installment']);
+		unset($data['installment']);
+		unset($data['installment_total']);
 		$delete_data = array(
 
 			'studentID'=>$ID 
 
 			);
+
+		// print_r($_POST);die();
 
 
 
@@ -1178,7 +1183,9 @@ $expense_salary_data = array(
 
 $this->admin_model->update('pending_students_fees',array('status' => 1),array('id' =>$PendindID));
 
-		if ($this->admin_model->insert($data,"student_fee")) {			
+		if ($this->admin_model->insert($data,"student_fee")) {	
+
+				$this->db->update('student',['is_installment'=>$_POST['is_installment'],'installment'=>$_POST['installment_total']-$_POST['installment']],['studentID'=>$ID]);
 			echo "<script>
 			alert('Successfully Inserted');
 			window.location.href='".base_url()."admin/view_fees'
@@ -1189,6 +1196,7 @@ $this->admin_model->update('pending_students_fees',array('status' => 1),array('i
 			</script>";
 		}
 	}
+
 
 
 	

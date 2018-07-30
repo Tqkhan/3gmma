@@ -1,4 +1,3 @@
-
             <div class="content-wrapper">
                 <div class="container">
                     <!-- main content -->
@@ -51,7 +50,7 @@
                                                 foreach ($fees as $fee): ?>
 
    														<tr>
-                                                        <td><?php echo $i ?></td>
+                                                        <td><?php echo $fee['feeID'] ?></td>
 
                                                         <td><?php echo $fee['studentID'] ?></td>
                                                         <td><?php echo $fee['student_fee'] ?></td>

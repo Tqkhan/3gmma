@@ -1007,7 +1007,8 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 				 ->from('student_fee sf')
 				 ->join('student s', 's.studentID = sf.studentID')
 				 ->join('students_courses sc', 'sc.studentID = s.studentID')
-				 ->join('course c', 'c.courseID = sc.courseID');
+				 ->join('course c', 'c.courseID = sc.courseID')
+				 ->order_by('sf.feeID');
 				   if ($id==null) {
 				   	if($_SESSION['campus_id']!=0){
 				  	 $this->db->where('sc.campusID',$_SESSION['campus_id'])

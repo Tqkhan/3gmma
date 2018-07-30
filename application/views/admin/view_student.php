@@ -30,26 +30,37 @@
                                     </div>
                                     <div class="panel-body">
                                         <form>
-                                            <div class="form-group row">
-                                        <div class="col-md-3">
+                            <div class="form-group row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Select Student</label>
+                                <select class="form-control select shift newt " name="studentID" type="text" id="example-text-input">
+                                    <option value="">Select Student</option>
+                                    <?php foreach ($students_row as $row): ?>
+                                        <option value="<?php echo $row['studentID'] ?>"><?php echo $row['student_name'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="">Select Shift</label>
+                                    <select class="form-control select shift newt " name="course_shift" type="text" id="example-text-input">
+                                        <option value="">Select Shift</option>
+                                        <option value="Morning">Morning</option>
+                                        <option value="Evening">Evening</option>
+                                    </select>
+                                </div>
+                            </div>
+                                        <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="">Select Shift</label>
-                                                <select class="form-control select shift newt " name="course_shift" type="text" id="example-text-input">
-                                                    <option value="">Select Shift</option>
-                                                    <option value="Morning">Morning</option>
-                                                    <option value="Evening">Evening</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="">Select Shift</label>
+                                                <label for="">Select Course</label>
                                                 <select class="form-control select coursedataID" name="courseID" type="text" id="courseID">
-                                                    <option value="">Select Course</option>
+                                        <option value="">Select Course</option>
                                                     <option value="" class="myselect"></option>
-                                                    <!--  <?php foreach ($courses as $course): ?>
+                                                     <?php foreach ($courses as $course): ?>
                                                    <option  value="<?php echo $course['courseID'] ?>" id="<?php echo $course['courseID']; ?>"><?php echo $course['course_title'] ?></option>
-                                               <?php endforeach ?> -->
+                                               <?php endforeach ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -120,6 +131,7 @@
                                                         <th>Status</th>
                                                         <th>Shift</th>
                                                         <th>Campus</th>
+                                                        <th>Timing</th>
                                                         <th>Actions?</th>
                                                     </tr>
                                                 </thead>
@@ -139,6 +151,7 @@
                                                         <td><?php echo $student['status'] ?></td>
                                                         <td><?php echo $student['course_shift'] ?></td>
                                                          <td><?php echo $student['campus'] ?></td>
+                                                         <td><?php echo $student['Timing'] ?></td>
     <td><a href="<?php echo base_url() ?>admin/edit_student/<?php echo $student['studentID'] ?>"><i class="fa fa-edit fa-2x"></i></a>
 
             <a href="<?php echo base_url() ?>admin/pdf_student/<?php echo $student['studentID'] ?>"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>

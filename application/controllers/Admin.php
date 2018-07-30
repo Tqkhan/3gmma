@@ -1184,8 +1184,14 @@ $expense_salary_data = array(
 $this->admin_model->update('pending_students_fees',array('status' => 1),array('id' =>$PendindID));
 
 		if ($this->admin_model->insert($data,"student_fee")) {	
-
+			if ($_POST['installment']!="" && $_POST['is_installment']!=0) {
 				$this->db->update('student',['is_installment'=>$_POST['is_installment'],'installment'=>$_POST['installment_total']-$_POST['installment']],['studentID'=>$ID]);
+			}else{
+			$this->db->update('student',['is_installment'=>0,'installment'=>0],['studentID'=>$ID]);
+
+			}
+
+
 			echo "<script>
 			alert('Successfully Inserted');
 			window.location.href='".base_url()."admin/view_fees'

@@ -65,10 +65,6 @@ class Admin_model extends CI_Model
 		return $this->db->query("select student.is_installment,student.installment,student_fee.* from student_fee inner join student on(student.studentID=student_fee.studentID)   
 			where student_fee.feeID='".$data['feeID']."'")->row_array();
 	}
-	/*public function sell_product($data)
-	{
-		return $this->db->query("select student.*,clients.*,login.login_name,login.login_id from lead inner join clients on(lead.clientID=clients.clientID) inner join login on(login.login_id=lead.employeeID) where lead.leadID='".$data['leadID']."'")->row_array();
-	}*/
-
+	
 
 }

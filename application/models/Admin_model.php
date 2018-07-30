@@ -54,11 +54,16 @@ class Admin_model extends CI_Model
 		}
 	}
 
+/*talha work*/
 
-
-	public function edit_request($data)
+	/*public function edit_request($data)
 	{
 		return $this->db->query("select * from student_fee  where student_fee.feeID='".$data['feeID']."'")->row_array();
+	}
+*/	public function edit_request($data)
+	{
+		return $this->db->query("select student.is_installment,student.installment,student_fee.* from student_fee inner join student on(student.studentID=student_fee.studentID)   
+			where student_fee.feeID='".$data['feeID']."'")->row_array();
 	}
 	/*public function sell_product($data)
 	{

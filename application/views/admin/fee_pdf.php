@@ -1,4 +1,3 @@
-
 <head>
   <meta charset="UTF-8">
   <title>Expense Voucher</title>
@@ -239,16 +238,41 @@ td{
                                 
                          </tr>
                      
-                     <tr>
-                           
+                         <tr> 
                            <td>Discount Fee</td> 
-                           <td><span class="total"><?php echo $expense_data['discountfee']; ?></span></td>       
-                                
+                           <td><span class="total"><?php echo $expense_data['discountfee']; ?></span></td>              
                          </tr>
+
+
+                         <?php if ($expense_data['is_installment']==1): ?>
+                           
+                         <tr> 
+                           <td>Previous Installment</td> 
+                           <td><span class="total"><?php echo $expense_data['installment']; ?></span></td>              
+                         </tr>
+                         <?php endif ?>
                           <tr>
                            
                            <td>Total</td> 
-                           <td><span class="total"><?php echo $expense_data['total']; ?></span></td>       
+                           <td><span class="total"><?php 
+                          if ($expense_data['is_installment']==1) {
+                            if ($expense_data['admission_fee'] !="") {
+                         echo $expense_data['total']+$expense_data['installment']+$expense_data['admission_fee']; 
+                                # code...
+                            }
+                            else{
+                           echo $expense_data['total']+$expense_data['installment']; 
+
+                            }
+                          }else{
+                         echo $expense_data['total']+$expense_data['admission_fee']; 
+
+                          }
+
+                           ?>
+                             
+
+                           </span></td>       
                                 
                          </tr> 
                          
@@ -391,7 +415,4 @@ function calc_total(){
         };  
     })(jQuery);  
   
-</script>  
-
-
-
+</script>

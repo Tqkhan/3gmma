@@ -243,31 +243,20 @@ td{
                            <td><span class="total"><?php echo $expense_data['discountfee']; ?></span></td>              
                          </tr>
 
-
-                         <?php if ($expense_data['is_installment']==1): ?>
-                           
-                         <tr> 
-                           <td>Previous Installment</td> 
-                           <td><span class="total"><?php echo $expense_data['installment']; ?></span></td>              
-                         </tr>
-                         <?php endif ?>
-                          <tr>
+                         <tr>
                            
                            <td>Total</td> 
                            <td><span class="total"><?php 
-                          if ($expense_data['is_installment']==1) {
+                          
                             if ($expense_data['admission_fee'] !="") {
-                         echo $expense_data['total']+$expense_data['installment']+$expense_data['admission_fee']; 
+                         echo $expense_data['total']+$expense_data['admission_fee']; 
                                 # code...
                             }
                             else{
-                           echo $expense_data['total']+$expense_data['installment']; 
+                           echo $expense_data['total']; 
 
                             }
-                          }else{
-                         echo $expense_data['total']+$expense_data['admission_fee']; 
-
-                          }
+                          
 
                            ?>
                              
@@ -275,8 +264,31 @@ td{
                            </span></td>       
                                 
                          </tr> 
-                         
-                       
+                         <?php if ($expense_data['is_installment']==1): 
+                           $sub_total = $expense_data['student_fee']+
+$expense_data['admission_fee']+
+$expense_data['membership_fee']+
+$expense_data['extra_charges']+
+$expense_data['discountfee'];
+
+                          ?>
+                           
+                         <tr> 
+                           <td>Installment</td> 
+                           <td><span class="total"><?php echo $remaining = $sub_total-$expense_data['installment']; ?></span></td>              
+                         </tr>
+                         <?php endif ?>
+                          
+
+                         <?php if ($expense_data['is_installment']==1): 
+                           
+                          ?>
+                           
+                         <tr> 
+                           <td>Remaining Installment</td> 
+                           <td><span class="total"><?php echo $expense_data['installment']; ?></span></td>              
+                         </tr>
+                         <?php endif ?>
                      
                         </tbody>
                 </table>

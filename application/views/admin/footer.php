@@ -1,6 +1,6 @@
   <footer class="main-footer">
                 <div class="container">
-                    <strong>Copyright &copy; 2016-2017 <a href="<?php echo base_url() ?>admin/">3GMM</a>.</strong> All rights reserved.
+                    <strong>Copyright &copy; 2016-2017 <a href="<?php echo base_url() ?>admin/">3GMMA</a>.</strong> All rights reserved.
                 </div>
             </footer> <!-- /. footer -->
         </div> <!-- ./wrapper -->

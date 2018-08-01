@@ -58,7 +58,7 @@
                                                         <td><?php echo $fee['submission_date'] ?></td>
                                                         <td><?php echo $fee['extra_charges'] ?></td>
                                                         <td><?php echo $fee['total'] ?></td>
-                                                        <td> <a href="<?php echo base_url() ?>admin/create_fee_voucher/<?php echo $fee['feeID'] ?>"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
+                                                        <td> <a href="<?php echo base_url() ?>admin/create_fee_voucher/<?php echo $fee['feeID'] ?>" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
                                                         <a href="<?php echo base_url() ?>admin/delete/student_fee/feeID/<?php echo $fee['feeID'] ?>"><img src="<?php echo base_url() ?>assets/assets/dist/img/d-icon.png" title="Delete" alt="Delete" width="35" height="35"></a></td>
                                                          
                                                        <!--  <td><a href="<?php echo base_url() ?>admin/edit_expense/<?php echo $expense['expenseID'] ?>"><i class="fa fa-edit fa-2x"></i></a> <a href="<?php echo base_url() ?>admin/delete/expense/expenseID/<?php echo $expense['expenseID'] ?>"><i class="fa fa-trash fa-2x"></i></a> </td> -->

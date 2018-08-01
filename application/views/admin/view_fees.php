@@ -75,6 +75,7 @@
                                                                <td></td>
                                                                <td></td>
                                                                <td>Grand Total :</td>
+                                                               <td></td>
                                                                <td><?php echo $total; ?></td>
                                                                <td></td>
                                                            </tr>

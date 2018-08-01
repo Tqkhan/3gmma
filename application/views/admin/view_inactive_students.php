@@ -32,7 +32,7 @@
                                                     <tr>
                                                         <th>Student ID</th>
                                                         <th>Student Name</th>
-                                                        <th>Student Email</th>
+                                                        <!-- <th>Student Email</th> -->
                                                         <th>Student Phone</th>
 
                                                         <th>Course Enrolled</th>
@@ -49,7 +49,7 @@
                                                     <tr>
                                                         <td><?php echo $student['studentID'] ?></td>
                                                         <td><?php echo $student['student_name'] ?></td>
-                                                        <td><?php echo $student['student_email'] ?></td>
+                                                        <!-- <td><?php echo $student['student_email'] ?></td> -->
                                                         <td><?php echo $student['student_contact'] ?></td>
 
                                                         <td><?php echo $student['course_title'] ?></td>

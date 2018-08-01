@@ -123,7 +123,7 @@
                                                     <tr>
                                                         <th>ID</th>
                                                         <th>Name</th>
-                                                        <th>Email</th>
+                                                        <!-- <th>Email</th> -->
                                                         <th>W.Number</th>
                                                         <th>Phone</th>
                                                         <th>Course Enrolled</th>
@@ -142,7 +142,7 @@
                                                     <tr>
                                                         <td><?php echo $student['studentID'] ?></td>
                                                         <td><?php echo $student['student_name'] ?></td>
-                                                        <td><?php echo $student['student_email'] ?></td>
+                                                        <!-- <td><?php echo $student['student_email'] ?></td> -->
                                                         <td><?php echo $student['home_phone'] ?></td>
                                                         <td><?php echo $student['student_contact'] ?></td>
 

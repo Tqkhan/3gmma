@@ -119,7 +119,7 @@
                                  <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Select Campus</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control select ddl2" name="campusID" id="" >
+                                                <select class="form-control select" name="campusID" id="" >
                                                     <option value="Select Campus">Select Campus</option>
                                                      <?php foreach ($campus as $camp): ?>
                                                    <option  value="<?php echo $camp['id'] ?>"><?php echo $camp['name'] ?></option>

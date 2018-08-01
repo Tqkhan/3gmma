@@ -43,7 +43,7 @@
                                 <div class="form-group row">
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Date of Birth</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" name="dob" placeholder="Date of Birth" type="text" id="bday">
+                                        <input class="form-control" name="dob" placeholder="Date of Birth" type="date" id="bday">
                                     </div>
                                 </div>
 

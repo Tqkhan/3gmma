@@ -60,7 +60,7 @@
 
                                                             
                                                         </td>
-                                                        <td><?php echo $student['monthly_fee']+$student['admission_fee']+$student['other_fee']-$student['discountfee'] ?></td>
+                                                        <td><?php echo $student['monthly_fee']+$student['admission_fee']+$student['other_fee']+$student['membership_fee']-$student['discountfee'] ?></td>
 
                                                         <td><a href="<?php echo base_url() ?>admin/fee_form/<?php echo $student['studentID'] ?>/<?php echo $student['id'] ?>"><i class="fa fa-edit fa-2x"></i></a> 
                                                         <!-- <a href="<?php echo base_url() ?>admin/in_active_fee/<?php echo $student['id'];?>"><i class="fa fa-trash fa-2x"></i></a> --></td>

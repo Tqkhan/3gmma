@@ -182,9 +182,9 @@ td{
                   <br>
                     <div class="col-xs-6 col-sm-6 col-md-6 ">
                         <div class="receipt-right">
-                            <h5>Name : <?php echo $expense_data['student_name']; ?>.</h5>
-                            <h6>Mobile :</b>ssss <?php echo $expense_data['student_email']; ?></h6>
-                            <h6>Email :</b>ssss <?php echo $expense_data['student_email']; ?></h6>
+                            <h5>Name : <?php  echo $expense_data['student_name']; ?>.</h5>
+                            <h6>Mobile :</b> <?php echo $expense_data['student_contact']; ?></h6>
+                            <h6>Email :</b> <?php echo $expense_data['student_email']; ?></h6>
                         </div>
                     </div>
                 </div>
@@ -201,14 +201,6 @@ td{
                         </tr>
                     </thead>
                    <tbody> <!-- Table Body for content -->
-                         
-                           <tr>
-                           
-                           <td>Student Fee Description</td> 
-                           <td><?php echo $expense_data['student_address']; ?></td> 
-                           
-                                
-                         </tr>
                          <tr>
                            
                            <td>Fee Amount</td> 

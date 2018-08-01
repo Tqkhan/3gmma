@@ -475,7 +475,7 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 
 			}
             else{
-		$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,campus.name AS campus')
+		$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,students_courses.course_shift,students_courses.Timing,campus.name AS campus')
 						->from('student')
 						->join('students_courses', 'student.studentID = students_courses.studentID', 'left')
 						->join('course', 'course.courseID = students_courses.courseID', 'left')
@@ -1059,7 +1059,7 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 	
 	public function create_fee()
 	{
-		$query = $this->db->select('student.student_name,student.monthly_fee,pending_students_fees.date,pending_students_fees.studentID,pending_students_fees.id')
+		$query = $this->db->select('student.student_name,student.monthly_fee,student.admission_fee,student.membership_fee,student.other_fee,student.discountfee,pending_students_fees.date,pending_students_fees.studentID,pending_students_fees.id')
 						->from('student')
 						->join('students_courses', 'students_courses.studentID = student.studentID', 'left')
 						->join('course', 'course.courseID = students_courses.courseID', 'left')

@@ -1043,7 +1043,7 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 			'feeID'=>$requestID
 			);
 		$data['expense_data']=$this->admin_model->edit_request($where);
-		// echo '<pre>';print_r($data);
+		// echo '<pre>';print_r($data);die();
 		// $this->load->view('admin/fee_pdf',$data);
 
 
@@ -1059,7 +1059,7 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 	
 	public function create_fee()
 	{
-		$query = $this->db->select('student.student_name,student.monthly_fee,student.admission_fee,student.membership_fee,student.other_fee,student.discountfee,pending_students_fees.date,pending_students_fees.studentID,pending_students_fees.id')
+		$query = $this->db->select('student.student_name,student.monthly_fee,student.admission_fee,student.membership_fee,student.other_fee,student.discountfee,student.membership_fee,pending_students_fees.date,pending_students_fees.studentID,pending_students_fees.id')
 						->from('student')
 						->join('students_courses', 'students_courses.studentID = student.studentID', 'left')
 						->join('course', 'course.courseID = students_courses.courseID', 'left')

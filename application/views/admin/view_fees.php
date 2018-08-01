@@ -1,4 +1,4 @@
-            <div class="content-wrapper">
+         <div class="content-wrapper">
                 <div class="container">
                     <!-- main content -->
                     <div class="content">
@@ -34,6 +34,7 @@
                                                         <th>S No.</th>
                                                         
                                                         <th>StudentID</th>
+                                                        <th>Name</th>
                                                         <th>Fees</th>
                                                         <th>Month of Fees</th>
                                                         <th>Submission Date</th>
@@ -53,6 +54,7 @@
                                                         <td><?php echo $fee['feeID'] ?></td>
 
                                                         <td><?php echo $fee['studentID'] ?></td>
+                                                        <td><?php echo $fee['student_name'] ?></td>
                                                         <td><?php echo $fee['student_fee'] ?></td>
                                                         <td><?php echo $fee['fee_month'] ?></td>
                                                         <td><?php echo $fee['submission_date'] ?></td>

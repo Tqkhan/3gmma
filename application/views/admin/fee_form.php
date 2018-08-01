@@ -123,7 +123,7 @@
                                         </div>
 
 											<div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label">Enter Fee</label>
+                                            <label for="example-text-input" class="col-sm-3 col-form-label">Month Fee</label>
                                             <div class="col-sm-9">
                                                 <input class="form-control" name="student_fee" placeholder="Enter Fee Amount Here" type="number" required="" id="example-text-input" value="<?php  echo $student['monthly_fee']; ?>" readonly>
                                                 <input style="display: none;" class="form-control" name="admission_fee" placeholder="Enter Fee Amount Here" type="number" required="" id="example-text-input" value="<?php  echo $student['admission_fee']; ?>" readonly>
@@ -133,6 +133,30 @@
                                                 <input style="display: none;" class="form-control" name="total" placeholder="Enter Fee Amount Here" type="number" required="" id="example-text-input" value="<?php  echo $student['total']; ?>" readonly>
                                         </div>
                                             </div>
+                                        <div class="form-group row">
+											<label for="example-text-input" class="col-sm-3 col-form-label">Membership Fee  </label>
+											<div class="col-sm-9">
+												<input class="form-control" name=""   placeholder="Other Fee" value="<?php echo $student['admission_fee'] ?>" type="text" id="" readonly>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="example-text-input" class="col-sm-3 col-form-label">Other Fee  </label>
+											<div class="col-sm-9">
+												<input class="form-control" name=""   placeholder="Other Fee" value="<?php echo $student['other_fee']?>" type="text" id="" readonly>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="example-text-input" class="col-sm-3 col-form-label">Discount Fee  </label>
+											<div class="col-sm-9">
+												<input class="form-control" name=""   placeholder="Other Fee" value="<?php echo $student['discountfee']?>" type="text" id="" readonly>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="example-text-input" class="col-sm-3 col-form-label">Total  </label>
+											<div class="col-sm-9">
+												<input class="form-control" value="<?php echo $student['admission_fee']+$student['membership_fee']+$student['other_fee']+$student['monthly_fee']-$student['discountfee']; ?>" name=""   placeholder="Total" type="text" id="" readonly>
+											</div>
+										</div>
                                             <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Date Of Submission</label>
                                             <div class="col-sm-9">
@@ -176,11 +200,19 @@
                                         <div class="form-group row" id="Create_installment" style="display:none">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Select Installment</label>
                                             <div class="col-sm-9">
+                                               <input class="form-control" name="installment" placeholder="installment" type="number" max="<?php echo $student['admission_fee']+$student['membership_fee']+$student['other_fee']+$student['monthly_fee']-$student['discountfee']; ?>"  id="" value="0">
+                                                <input class="form-control" name="is_installment"  placeholder="charges if any" type="hidden"  id="">
+                                                <input class="form-control" name="installment_total"  placeholder="charges if any" type="hidden" value="<?php echo $student['admission_fee']+$student['monthly_fee']; ?>"  id="">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group row" id="Create_installment" style="display:none">
+                                            <label for="example-text-input" class="col-sm-3 col-form-label">Select Installment</label>
+                                            <div class="col-sm-9">
                                                <input class="form-control" name="installment" placeholder="installment" type="number" max="<?php echo $student['admission_fee']+$student['monthly_fee']; ?>"  id="" value="0">
                                                 <input class="form-control" name="is_installment"  placeholder="charges if any" type="hidden"  id="">
                                                 <input class="form-control" name="installment_total"  placeholder="charges if any" type="hidden" value="<?php echo $student['admission_fee']+$student['monthly_fee']; ?>"  id="">
                                             </div>
-                                        </div> 
+                                        </div> --> 
                                         <div class="form-group row col-md-12">
 										   <input type="submit" value="Submit Fees" id="feeform_register" class="btn btn-primary pull-right">
 										</div>

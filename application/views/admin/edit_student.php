@@ -42,7 +42,7 @@
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Date of Birth</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" value="<?php echo $students['dob'] ?>" name="dob" placeholder="Student Name " type="text"  id="bday">
+                                                <input class="form-control" value="<?php echo $students['dob'] ?>" name="dob" placeholder="" type="date"  id="bday">
                                             </div>
                                         </div>
 

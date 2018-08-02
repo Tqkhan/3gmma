@@ -239,17 +239,13 @@ td{
                            
                            <td>Total</td> 
                            <td><span class="total"><?php 
-                          
-                            if ($expense_data['admission_fee'] !="") {
-                         echo $expense_data['total']+$expense_data['admission_fee']; 
-                                # code...
-                            }
-                            else{
-                           echo $expense_data['total']; 
-
-                            }
-                          
-
+                              
+                              $sub_total = $expense_data['student_fee']+
+$expense_data['admission_fee']+
+$expense_data['membership_fee']+
+$expense_data['extra_charges']-
+$expense_data['discountfee'];
+                          echo $sub_total;
                            ?>
                              
 
@@ -257,12 +253,7 @@ td{
                                 
                          </tr> 
                          <?php if ($expense_data['is_installment']==1): 
-                           $sub_total = $expense_data['student_fee']+
-$expense_data['admission_fee']+
-$expense_data['membership_fee']+
-$expense_data['extra_charges']+
-$expense_data['discountfee'];
-
+                          
                           ?>
                            
                          <tr> 

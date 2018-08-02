@@ -460,7 +460,7 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 					$data['students']=$this->db->get()->result_array();
 
 			}else if ($_GET['campus']) {
-            	$query = $this->db->select('s.*, GROUP_CONCAT(c.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(t.trainer_name SEPARATOR ",") AS trainer,cam.name AS campus')
+            	$query = $this->db->select('s.*, GROUP_CONCAT(c.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(t.trainer_name SEPARATOR ",") AS trainer,GROUP_CONCAT(sc.course_shift SEPARATOR ",") AS course_shift,GROUP_CONCAT(sc.Timing SEPARATOR ",") AS Timing,cam.name AS campus')
 						->from('student s')
 						->join('students_courses sc', 's.studentID = sc.studentID', 'left')
 						->join('course c', 'c.courseID = sc.courseID', 'left')
@@ -475,7 +475,7 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 
 			}
             else{
-		$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,students_courses.course_shift,students_courses.Timing,campus.name AS campus')
+		$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,students_courses.course_shift,GROUP_CONCAT(students_courses.course_shift SEPARATOR ",") AS course_shift,GROUP_CONCAT(students_courses.Timing SEPARATOR ",") AS Timing,campus.name AS campus')
 						->from('student')
 						->join('students_courses', 'student.studentID = students_courses.studentID', 'left')
 						->join('course', 'course.courseID = students_courses.courseID', 'left')
@@ -1294,7 +1294,7 @@ for($i= 0; $i < $count_array_course; $i++)
 		'studentID' => $id,
 		'courseID'=>$data_unset['courseID'][$i],
 		'Timing'=>$data_unset['gym_timing'][$i],
-		'campusID'=>$data_unset['campusID'][$i],
+		'campusID'=>$data_unset['campusID'][0],
 		'course_shift'=>$data_unset['course_shift'][$i],
 		'TrainerID'=>$data_unset['trainerID'][$i],
 		'Fee'=>$data_unset['fee'][$i]

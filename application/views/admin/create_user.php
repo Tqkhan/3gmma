@@ -119,7 +119,7 @@
                                  <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Select Campus</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control select" name="campusID" id="" >
+                                                <select class="form-control select" name="campusID[]" id="" >
                                                     <option value="Select Campus">Select Campus</option>
                                                      <?php foreach ($campus as $camp): ?>
                                                    <option  value="<?php echo $camp['id'] ?>"><?php echo $camp['name'] ?></option>
@@ -142,7 +142,7 @@
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Select Shift </label>
                                             <div class="col-sm-9">
-                                                <select class="form-control select shift newt" name="course_shift" type="text" id="example-text-input">
+                                                <select class="form-control select shift newt" name="course_shift[]" type="text" id="example-text-input">
                                                     <option value="">Select Shift</option>
                                                     <option value="Morning">Morning</option>
                                                     <option value="Evening">Evening</option>

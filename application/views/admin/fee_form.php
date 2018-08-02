@@ -1,4 +1,6 @@
 
+
+
 			<div class="content-wrapper">
 				<div class="container">
 					<!-- main content -->
@@ -136,7 +138,7 @@
                                         <div class="form-group row">
 											<label for="example-text-input" class="col-sm-3 col-form-label">Membership Fee  </label>
 											<div class="col-sm-9">
-												<input class="form-control" name=""   placeholder="Other Fee" value="<?php echo $student['admission_fee'] ?>" type="text" id="" readonly>
+												<input class="form-control" name=""   placeholder="Other Fee" value="<?php echo $student['membership_fee'] ?>" type="text" id="" readonly>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -154,7 +156,7 @@
 										<div class="form-group row">
 											<label for="example-text-input" class="col-sm-3 col-form-label">Total  </label>
 											<div class="col-sm-9">
-												<input class="form-control" value="<?php echo $student['admission_fee']+$student['membership_fee']+$student['other_fee']+$student['monthly_fee']-$student['discountfee']; ?>" name=""   placeholder="Total" type="text" id="" readonly>
+												<input class="form-control" value="<?php echo ($student['admission_fee']+$student['membership_fee']+$student['monthly_fee']+$student['other_fee'])-$student['discountfee'] ?>" name=""   placeholder="Total" type="text" id="" readonly>
 											</div>
 										</div>
                                             <div class="form-group row">
@@ -173,7 +175,7 @@
                               	<div class="form-group row">
                                             <label for="example-text-input" class="col-sm-3 col-form-label">Total Amount</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" name="extra_charges" placeholder="charges if any" type="text" required="" value="<?php echo $student['monthly_fee']+$student['admission_fee']+$student['installment'] ?>" id="example-text-input">
+                                                <input class="form-control" name="extra_charges" placeholder="charges if any" type="text" required="" value="<?php echo ($student['admission_fee']+$student['membership_fee']+$student['monthly_fee']+$student['other_fee']+$student['installment'])-$student['discountfee'] ?>" id="example-text-input">
                                             </div>
                                             
                                         </div>
@@ -182,7 +184,7 @@
                                             <div class="col-sm-9">
                                                 <input class="form-control" name="extra_charges" placeholder="charges if any" type="text" required="" value="<?php echo $student['installment'] ?>" id="example-text-input">
                                             </div>
-                                            <label class="pull-right">Total With Last Installment <?php echo $student['monthly_fee']+$student['admission_fee']+$student['installment'] ?></label>
+                                            <label class="pull-right">Total With Last Installment <?php echo ($student['admission_fee']+$student['membership_fee']+$student['monthly_fee']+$student['other_fee']+$student['installment'])-$student['discountfee'] ?></label>
                                         </div>
 
                               	
@@ -202,17 +204,10 @@
                                             <div class="col-sm-9">
                                                <input class="form-control" name="installment" placeholder="installment" type="number" max="<?php echo $student['admission_fee']+$student['membership_fee']+$student['other_fee']+$student['monthly_fee']-$student['discountfee']; ?>"  id="" value="0">
                                                 <input class="form-control" name="is_installment"  placeholder="charges if any" type="hidden"  id="">
-                                                <input class="form-control" name="installment_total"  placeholder="charges if any" type="hidden" value="<?php echo $student['admission_fee']+$student['monthly_fee']; ?>"  id="">
+                                                <input class="form-control" name="installment_total"  placeholder="charges if any" type="hidden" value="<?php echo ($student['admission_fee']+$student['membership_fee']+$student['monthly_fee']+$student['other_fee'])-$student['discountfee'] ?>"  id="">
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group row" id="Create_installment" style="display:none">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label">Select Installment</label>
-                                            <div class="col-sm-9">
-                                               <input class="form-control" name="installment" placeholder="installment" type="number" max="<?php echo $student['admission_fee']+$student['monthly_fee']; ?>"  id="" value="0">
-                                                <input class="form-control" name="is_installment"  placeholder="charges if any" type="hidden"  id="">
-                                                <input class="form-control" name="installment_total"  placeholder="charges if any" type="hidden" value="<?php echo $student['admission_fee']+$student['monthly_fee']; ?>"  id="">
-                                            </div>
-                                        </div> --> 
+                                     
                                         <div class="form-group row col-md-12">
 										   <input type="submit" value="Submit Fees" id="feeform_register" class="btn btn-primary pull-right">
 										</div>
@@ -239,7 +234,7 @@
 
 
 	$('[name=extra_charges]').keyup(function() {
-		 var total=parseInt($('[name=admission_fee]').val())+parseInt($('[name=student_fee]').val())+parseInt($(this).val());
+		 var total=parseInt($('[name=total]').val())+parseInt($(this).val());
         
 		 $('[name=installment]').attr('max',parseInt(total));
 		 $('[name=installment_total]').val(parseInt(total));

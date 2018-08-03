@@ -38,6 +38,7 @@
                                                         <th>Fees</th>
                                                         <th>Month of Fees</th>
                                                         <th>Submission Date</th>
+                                                        <th>Remaining Fee</th>
                                                         <th>Submitted Fee</th>
                                                         <th>Total</th>
                                                         <th>Action</th>
@@ -58,12 +59,13 @@
                                                         <td><?php echo $fee['student_fee'] ?></td>
                                                         <td><?php echo $fee['fee_month'] ?></td>
                                                         <td><?php echo $fee['submission_date'] ?></td>
+                                                        <td><?php echo $fee['installment'] ?></td>
                                                         <td><?php echo $fee['submit_amount'] ?></td>
-                                                        <td><?php echo $fee['total'] ?></td>
+                                                        <td><?php echo $fee['total']+$fee['previous_installment'] ?></td>
                                                         <td> <a href="<?php echo base_url() ?>admin/create_fee_voucher/<?php echo $fee['feeID'] ?>" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
                                                         <a href="<?php echo base_url() ?>admin/delete/student_fee/feeID/<?php echo $fee['feeID'] ?>"><img src="<?php echo base_url() ?>assets/assets/dist/img/d-icon.png" title="Delete" alt="Delete" width="35" height="35"></a></td>
                                                          
-                                                       <!--  <td><a href="<?php echo base_url() ?>admin/edit_expense/<?php echo $expense['expenseID'] ?>"><i class="fa fa-edit fa-2x"></i></a> <a href="<?php echo base_url() ?>admin/delete/expense/expenseID/<?php echo $expense['expenseID'] ?>"><i class="fa fa-trash fa-2x"></i></a> </td> -->
+                                                     
 
                                                     </tr>
 													<?php
@@ -76,9 +78,11 @@
                                                                <td></td>
                                                                <td></td>
                                                                <td></td>
+                                                               <td></td>
                                                                <td>Grand Total :</td>
                                                                <td></td>
                                                                <td><?php echo $total; ?></td>
+                                                               <td></td>
                                                                <td></td>
                                                            </tr>
                                                        </tfoot>

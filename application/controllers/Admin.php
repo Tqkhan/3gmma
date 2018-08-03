@@ -1159,20 +1159,17 @@ $expense_salary_data = array(
 	{
 		$data=$_POST;
 		$ID = $data['studentID'];
-		$st=$this->db->get_where('student',['studentID'=>$ID])->row_array();
-		 die(print_r($st));
+		$st=$this->db->get_where('student_fee',['studentID'=>$ID])->row_array();
+		 // die("<pre>".print_r($st));
 		$PendindID = $data['pendingID'];
 		unset($data['pendingID']);
 		unset($data['is_installment']);
 		unset($data['installment']);
 		unset($data['installment_total']);
 		$delete_data = array(
-
 			'studentID'=>$ID 
-
 			);
 
-		// print_r($_POST);die();
 
 
 
@@ -1181,17 +1178,22 @@ $expense_salary_data = array(
 $this->admin_model->update('pending_students_fees',array('status' => 1),array('id' =>$PendindID));
 
 		if ($this->admin_model->insert($data,"student_fee")) {	
+			$feeID=$this->db->insert_id();
 			if ($_POST['installment']!="" && $_POST['is_installment']!=0) {
-				$this->db->update('student',
+				$this->db->update('student_fee',
 			[
 			'previous_installment'=>$st['installment'],
 		    'is_previous'=>$st['is_installment'],
 			'is_installment'=>$_POST['is_installment'],
 			'installment'=>$_POST['installment_total']-$_POST['installment'],
-		    ],['studentID'=>$ID]);
+		    ],['studentID'=>$ID,'feeID'=>$feeID]);
 			}
 			else{
-			$this->db->update('student',['is_installment'=>0,'installment'=>0],['studentID'=>$ID]);
+			$this->db->update('student_fee',[
+		      'is_installment'=>0,'installment'=>0,
+		      'previous_installment'=>$st['installment'],
+		      'is_previous'=>$st['is_installment'],
+		      ],['studentID'=>$ID,'feeID'=>$feeID]);
 
 			}
 

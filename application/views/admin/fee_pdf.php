@@ -273,6 +273,22 @@ $expense_data['discountfee'];
                            <td><span class="total"><?php echo $expense_data['installment']; ?></span></td>              
                          </tr>
                          <?php endif ?>
+
+                         <?php if ($expense_data['is_previous']==1): 
+                          
+                          ?>
+                           
+                         <tr> 
+                           <td>Previous Installment</td> 
+                           <td><span class="total"><?php echo $expense_data['previous_installment']; ?></span></td>              
+                         </tr>
+                     
+                           
+                         <tr> 
+                           <td>Remaining Installment</td> 
+                           <td><span class="total"><?php echo $expense_data['installment']; ?></span></td>              
+                         </tr>
+                         <?php endif ?>
                      
                         </tbody>
                 </table>

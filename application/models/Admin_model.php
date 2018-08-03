@@ -62,7 +62,7 @@ class Admin_model extends CI_Model
 	}
 */	public function edit_request($data)
 	{
-		return $this->db->query("select student.is_installment,student.installment,student.is_previous,student.previous_installment,student_fee.* from student_fee inner join student on(student.studentID=student_fee.studentID)   
+		return $this->db->query("select student_fee.* from student_fee inner join student on(student.studentID=student_fee.studentID)   
 			where student_fee.feeID='".$data['feeID']."'")->row_array();
 	}
 	

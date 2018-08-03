@@ -1,3 +1,9 @@
+
+<?php 
+// echo "<pre>";
+// print_r($expense_data);
+// die();
+ ?>
 <head>
   <meta charset="UTF-8">
   <title>Expense Voucher</title>
@@ -260,12 +266,7 @@ $expense_data['discountfee'];
                            <td>Installment</td> 
                            <td><span class="total"><?php echo $remaining = $sub_total-$expense_data['installment']; ?></span></td>              
                          </tr>
-                         <?php endif ?>
-                          
-
-                         <?php if ($expense_data['is_installment']==1): 
-                           
-                          ?>
+                     
                            
                          <tr> 
                            <td>Remaining Installment</td> 

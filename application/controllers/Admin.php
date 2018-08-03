@@ -637,7 +637,7 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 		$this->is_login();
 
 		$where=array('trainerID'=>$trainerID);
-		$data['courses']=$this->admin_model->raw_query("select * from course where campus_id = ".$_SESSION['campus_id'],1);
+		$data['courses']=$this->admin_model->raw_query("select * from course ",1);
 
 
 	$this->db->select('a.*,GROUP_CONCAT(b.course_title SEPARATOR ",") AS course_title')
@@ -1008,23 +1008,17 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 				 ->join('student s', 's.studentID = sf.studentID')
 				 ->join('students_courses sc', 'sc.studentID = s.studentID')
 				 ->join('course c', 'c.courseID = sc.courseID')
-				 ->order_by('sf.feeID');
-				   if ($id==null) {
-				   	if($_SESSION['campus_id']!=0){
-				  	 $this->db->where('sc.campusID',$_SESSION['campus_id'])
-				      ->group_by('s.studentID');
-				   	}
-				   }else{
-				   	if($_SESSION['campus_id']){
-
-				  	$this->db->where('s.studentID',$id)
-				  	->where('sc.campusID',$_SESSION['campus_id'])
-				  	->group_by('s.studentID');
-				  }else{
-				$this->db->where('s.studentID',$id)->group_by('s.studentID')
-				  	->group_by('s.studentID');
+				 ->order_by('sf.feeID')
+				 ->group_by('sf.feeID');
+				  
+				   if (!$id) {
+				   	if ($_SESSION['main']!=1) {
+				$this->db->where('sc.campusID',$_SESSION['campus_id']);			  	}
 				  }
-				   }
+				  else{
+				$this->db->where('s.studentID',$id);
+				  }
+				   
 				  // }
 				
 
@@ -1047,7 +1041,7 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 		// $this->load->view('admin/fee_pdf',$data);
 
 
-
+       
 		$this->load->library('pdf');
 		$this->pdf->load_view('admin/fee_pdf',$data);
 		$this->pdf->Output();
@@ -1165,6 +1159,8 @@ $expense_salary_data = array(
 	{
 		$data=$_POST;
 		$ID = $data['studentID'];
+		$st=$this->db->get_where('student',['studentID'=>$ID])->row_array();
+		 die(print_r($st));
 		$PendindID = $data['pendingID'];
 		unset($data['pendingID']);
 		unset($data['is_installment']);
@@ -1186,12 +1182,18 @@ $this->admin_model->update('pending_students_fees',array('status' => 1),array('i
 
 		if ($this->admin_model->insert($data,"student_fee")) {	
 			if ($_POST['installment']!="" && $_POST['is_installment']!=0) {
-				$this->db->update('student',['is_installment'=>$_POST['is_installment'],'installment'=>$_POST['installment_total']-$_POST['installment']],['studentID'=>$ID]);
-			}else{
+				$this->db->update('student',
+			[
+			'previous_installment'=>$st['installment'],
+		    'is_previous'=>$st['is_installment'],
+			'is_installment'=>$_POST['is_installment'],
+			'installment'=>$_POST['installment_total']-$_POST['installment'],
+		    ],['studentID'=>$ID]);
+			}
+			else{
 			$this->db->update('student',['is_installment'=>0,'installment'=>0],['studentID'=>$ID]);
 
 			}
-
 
 			echo "<script>
 			alert('Successfully Inserted');

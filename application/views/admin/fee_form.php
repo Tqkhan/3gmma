@@ -208,6 +208,12 @@
                                             </div>
                                         </div>
                                      
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-sm-3 col-form-label">Submit Amount</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" name="submit_amount" placeholder="charges if any" type="text" required="" value="0" id="example-text-input">
+                                            </div>
+                                        </div>
                                         <div class="form-group row col-md-12">
 										   <input type="submit" value="Submit Fees" id="feeform_register" class="btn btn-primary pull-right">
 										</div>

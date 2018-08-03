@@ -216,6 +216,13 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
                                                 <input class="form-control" name="submit_amount" placeholder="charges if any" type="text" required="" value="0" id="example-text-input">
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-sm-3 col-form-label">Enter Discount</label>
+                                            <div class="col-sm-9">
+                                            	<input type="hidden" name="is_discount" value="0">
+                                                <input class="form-control" name="discount_current" placeholder="charges if any" type="text" required="" value="0" id="example-text-input">
+                                            </div>
+                                        </div>
                                         <div class="form-group row col-md-12">
 										   <input type="submit" value="Submit Fees" id="feeform_register" class="btn btn-primary pull-right">
 										</div>
@@ -251,5 +258,13 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
 
 	$('[name=installment]').keyup(function() {
 		$('[name=submit_amount]').val($(this).val());
+	});
+	$('[name=discount_current]').keyup(function() {
+		var dist=$(this).val();
+		if (dist>0) {
+			$('[name=is_discount]').val(1);
+		}else{
+			$('[name=is_discount]').val(0);	
+		}
 	});
 </script>

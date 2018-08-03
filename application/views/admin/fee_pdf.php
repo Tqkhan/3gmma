@@ -240,24 +240,20 @@ td{
                            <td>Discount Fee</td> 
                            <td><span class="total"><?php echo $expense_data['discountfee']; ?></span></td>              
                          </tr>
+                         <tr> 
+                           <td>Current Discount</td> 
+                           <td><span class="total"><?php echo $expense_data['discount_current']; ?></span></td>              
+                         </tr>
 
-                         <tr>
-                           
-                           <td>Total</td> 
-                           <td><span class="total"><?php 
-                              
+<?php 
+
                               $sub_total = $expense_data['student_fee']+
 $expense_data['admission_fee']+
 $expense_data['membership_fee']+
 $expense_data['extra_charges']-
 $expense_data['discountfee'];
-                          echo $sub_total;
-                           ?>
-                             
+ ?>
 
-                           </span></td>       
-                                
-                         </tr> 
                          <?php if ($expense_data['is_installment']==1): 
                           
                           ?>
@@ -290,6 +286,35 @@ $expense_data['discountfee'];
                          </tr>
                          <?php endif ?>
                      
+                         <tr>
+                           
+                           <td>Total</td> 
+                           <td><span class="total"><?php 
+                              
+                          echo $sub_total+$expense_data['previous_installment'];
+                           ?>
+                             
+
+                           </span></td>       
+                                
+                         </tr> 
+                         <tr>
+                           
+                           <td>Total With Discount</td> 
+                           <td><span class="total"><?php 
+                              
+                              $sub_totalwd = $expense_data['student_fee']+
+$expense_data['admission_fee']+
+$expense_data['membership_fee']+
+$expense_data['extra_charges']-
+$expense_data['discountfee']-$expense_data['discount_current'];
+                          echo $sub_totalwd+$expense_data['previous_installment'];
+                           ?>
+                             
+
+                           </span></td>       
+                                
+                         </tr> 
                         </tbody>
                 </table>
             </div>

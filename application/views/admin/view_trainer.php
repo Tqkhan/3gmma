@@ -55,8 +55,9 @@
                                                         <td><?php echo $trainer['status'] ?></td>
                                                         <td>
               <a href="<?php echo base_url() ?>admin/submit_salaries/<?php echo $trainer['trainerID'] ?>" target="_blank"><i class="fa fa-money fa-2x"></i></a> 
-                                                            <a href="<?php echo base_url() ?>admin/edit_trainer/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-edit fa-2x"></i></a> 
-                                                         <a href="<?php echo base_url() ?>admin/trainer_deactivate/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-trash fa-2x"></i></a>
+                  <a href="<?php echo base_url() ?>admin/edit_trainer/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-edit fa-2x"></i></a> 
+                 <a href="<?php echo base_url() ?>admin/trainer_deactivate/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-power-off fa-2x"></i></a>
+                 <a href="<?php echo base_url() ?>admin/delete/trainer/trainerID/<?php echo $trainer['trainerID'] ?>"><i class="fa fa-trash fa-2x"></i></a>
                                                      </td>
 
                                                     </tr>

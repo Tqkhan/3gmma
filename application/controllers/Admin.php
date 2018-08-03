@@ -2189,6 +2189,13 @@ function trainercheck_date()
 			</script>";
 
           }
+          else if($table=="campus"){
+			echo "<script>
+			alert('Successfully Deleted');
+			window.location.href='".base_url()."admin/view_campus'
+			</script>";
+
+          }
 		}
 		else{
 			echo "<script>

@@ -45,7 +45,12 @@
                                                         <td><?php echo $cum['id'] ?></td>
                                                         <td><?php echo $cum['name'] ?></td>
                                                         <td><?php echo $cum['address'] ?></td>
-                                                        <td><a href="<?php echo base_url() ?>admin/edit_campus/<?php echo $cum['id'] ?>"><i class="fa fa-edit fa-2x"></i></td>
+                                                        <td>
+                                                            <a href="<?php echo base_url() ?>admin/edit_campus/<?php echo $cum['id'] ?>"><i class="fa fa-edit fa-2x"></i>
+                                                            </a>
+                                                            <a href="<?php echo base_url() ?>admin/delete/campus/id/<?php echo $cum['id'] ?>" > <i class="fa fa-trash fa-2x"></i>
+                                                            </a>
+                                                        </td>
 
                                                     </tr>
                                                   <?php endforeach ?>

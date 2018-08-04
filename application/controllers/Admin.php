@@ -932,10 +932,9 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 	function trainers_salaries($id= null)
 	{
 		$query = $this->db->select('trainer.trainerID,trainer.trainer_salary,trainer.trainer_name,trainer_salary.id,trainer_salary.submission_date,trainer_salary.status')
-		
-						->from('trainer_salary')
-						->join('trainer', 'trainer_salary.trainerID = trainer.trainerID')
-						->where('trainer_salary.status', 0);
+		->from('trainer_salary')
+		->join('trainer', 'trainer_salary.trainerID = trainer.trainerID')
+		->where('trainer_salary.status', 0);
 						
 		$data['trainer'] = $this->db->get()->result_array();
 		$this->load->view('admin/header',$data);
@@ -947,13 +946,13 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 	{
 		error_reporting(1);
 		$query = $this->db->select('trainer.trainerID,trainer.trainer_salary,trainer.trainer_name,trainer_salary.id,trainer_salary.submission_date,trainer_salary.status')
-		
-						->from('trainer_salary')
-						->join('trainer', 'trainer_salary.trainerID = trainer.trainerID')
-						->where('trainer_salary.status', 1);
-						if ($id) {
-					$this->db->where('trainer_salary.trainerID', $id);
-						}
+		->from('trainer_salary')
+		->join('trainer', 'trainer_salary.trainerID = trainer.trainerID')
+		->where('trainer_salary.status', 1)
+		->where("trainer_salary.submission_date > ", " DATE_SUB(now(), INTERVAL 1 MONTH) ");
+			if ($id) {
+		$this->db->where('trainer_salary.trainerID', $id);
+			}
 		$data['trainer'] = $this->db->get()->result_array();
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/submit_salaries');
@@ -1159,12 +1158,10 @@ $expense_salary_data = array(
 	{
 		$data=$_POST;
 		$ID = $data['studentID'];
-		$st=$this->db->get_where('student_fee',['studentID'=>$ID])->row_array();
+		$st=$this->db->query('select * from student_fee where studentID='.$ID.' order by feeID DESC limit 0,1')->row_array();
 		 // die("<pre>".print_r($st));
 		$PendindID = $data['pendingID'];
 		unset($data['pendingID']);
-		unset($data['is_installment']);
-		unset($data['installment']);
 		unset($data['installment_total']);
 		$delete_data = array(
 			'studentID'=>$ID 
@@ -1349,7 +1346,15 @@ for($i= 0; $i < $count_array_course; $i++)
 
 
 		$data['courseID'] = $trainer_data;
+
 		if ($this->admin_model->insert($data,"trainer")) {
+		   
+		   $trainerID=$this->db->insert_id();
+           
+           $date_interval=date('Y-m-d', strtotime($_POST['trainer_Joining_date']. " + 30 days"));
+           $this->db->insert('trainer_salary',['trainerID'=>$trainerID,'submission_date'=>$date_interval,'status'=>1]);
+
+		
 			echo "<script>
 			alert('Successfully Inserted');
 			window.location.href='".base_url()."admin/view_trainer'

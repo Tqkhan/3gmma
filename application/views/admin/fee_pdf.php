@@ -254,6 +254,20 @@ $expense_data['extra_charges']-
 $expense_data['discountfee'];
  ?>
 
+
+
+                         <tr>
+                           
+                           <td>Fees Total (Only Total) </td> 
+                           <td><span class="total"><?php 
+                              
+                          echo $sub_total;
+                           ?>
+                             
+
+                           </span></td>       
+                                
+                         </tr> 
                          <?php if ($expense_data['is_installment']==1): 
                           
                           ?>

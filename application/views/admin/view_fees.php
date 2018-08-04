@@ -46,49 +46,49 @@
 
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-												<?php 
-                                                 $total=0;
-                                                  $i=1;
-                                                foreach ($fees as $fee): ?>
+            <tbody>
+			<?php 
+             $total=0;
+              $i=1;
+            foreach ($fees as $fee): ?>
 
-   														<tr>
-                                                        <td><?php echo $fee['feeID'] ?></td>
+						<tr>
+                    <td><?php echo $fee['feeID'] ?></td>
 
-                                                        <td><?php echo $fee['studentID'] ?></td>
-                                                        <td><?php echo $fee['student_name'] ?></td>
-                                                        <td><?php echo $fee['student_fee'] ?></td>
-                                                        <td><?php echo $fee['fee_month'] ?></td>
-                                                        <td><?php echo $fee['submission_date'] ?></td>
-                                                        <td><?php echo $fee['installment'] ?></td>
-                                                        <td><?php echo $fee['submit_amount'] ?></td>
-                                                        <td><?php echo $fee['discount_current'] ?></td>
-                                                        <td><?php echo $fee['total']+$fee['previous_installment'] ?></td>
-                                                        <td> <a href="<?php echo base_url() ?>admin/create_fee_voucher/<?php echo $fee['feeID'] ?>" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
-                                                        <a href="<?php echo base_url() ?>admin/delete/student_fee/feeID/<?php echo $fee['feeID'] ?>"><img src="<?php echo base_url() ?>assets/assets/dist/img/d-icon.png" title="Delete" alt="Delete" width="35" height="35"></a></td>
-                                                         
-                                                     
+                    <td><?php echo $fee['studentID'] ?></td>
+                    <td><?php echo $fee['student_name'] ?></td>
+                    <td><?php echo $fee['student_fee'] ?></td>
+                    <td><?php echo $fee['fee_month'] ?></td>
+                    <td><?php echo $fee['submission_date'] ?></td>
+                    <td><?php echo $fee['installment'] ?></td>
+                    <td><?php echo $fee['submit_amount'] ?></td>
+                    <td><?php echo $fee['discount_current'] ?></td>
+                    <td><?php echo $fee['total']+$fee['previous_installment'] ?></td>
+                    <td> <a href="<?php echo base_url() ?>admin/create_fee_voucher/<?php echo $fee['feeID'] ?>" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
+                    <a href="<?php echo base_url() ?>admin/delete/student_fee/feeID/<?php echo $fee['feeID'] ?>"><img src="<?php echo base_url() ?>assets/assets/dist/img/d-icon.png" title="Delete" alt="Delete" width="35" height="35"></a></td>
+                     
+                 
 
-                                                    </tr>
-													<?php
-                                                     $total+=$fee['submit_amount'];
-                                                      $i++;
-                                                     endforeach ?>
-                                                       <tfoot>
-                                                           <tr>
-                                                               <td></td>
-                                                               <td></td>
-                                                               <td></td>
-                                                               <td></td>
-                                                               <td></td>
-                                                               <td></td>
-                                                               <td>Grand Total :</td>
-                                                               <td><?php echo $total; ?></td>
-                                                               <td></td>
-                                                               <td></td>
-                                                               <td></td>
-                                                           </tr>
-                                                       </tfoot>
+                </tr>
+				<?php
+                 $total+=$fee['submit_amount'];
+                  $i++;
+                 endforeach ?>
+                   <tfoot>
+                       <tr>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td>Grand Total :</td>
+                           <td><?php echo $total; ?></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                       </tr>
+                   </tfoot>
                                                    
                                                 </tbody>
                                             </table>

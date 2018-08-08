@@ -50,13 +50,12 @@ class Admin extends CI_Controller
 	public function userattendence($qrcode)
 	{
 		
-header('Content-Type: application/json');
-
-		$this->db->select('studentID,student_name')
+		// $qrcode = '30944';
+		$this->db->select('studentID')
 					 ->from('student')
 					 ->where('qr', $qrcode);
-					 $textdata = $this->db->get()->row_array();
-		$studentID = $textdata['studentID'];
+					 $textdata = $this->db->get()->result_array();
+		$studentID = $textdata[0]['studentID'];
 		$this->db->select('*')
 					 ->from('userattendence')
 					 ->where('studentID', $studentID)
@@ -66,9 +65,10 @@ header('Content-Type: application/json');
 					 $result_data = $this->db->get()->row_array();
 					 if(empty($result_data))
 					 {
-					 
+					 	// echo 'inserted';
+					 	//  echo '<pre>';print_r($result_data);die();
 
-					 	$current_date = date("Y/m/d");
+					 	$current_date = date("Y/m/d");echo '<br>';
 					 	$current_time = date("h:i:s");
 					 	$insert_data =array(
 
@@ -82,7 +82,7 @@ header('Content-Type: application/json');
 					 		);
 
 			$result_return = $this->admin_model->insert($insert_data,"userattendence");
-			$array_json=['Status'=>'Thank You , Successfully Checked In'];
+			echo 'record inserted id = '.$result_return;
 
 					 }
 					 else
@@ -95,10 +95,11 @@ header('Content-Type: application/json');
 					 ->limit(1)
 					 ->order_by("userattendence.id",'DESC');
 					 $get_id = $this->db->get()->row_array();
+					 // echo '<pre>';print_r($get_id['id']);die();
 
 
 						$where=array('id'=>$get_id['id']);
-					 	$current_date_out = date("Y/m/d");
+					 	$current_date_out = date("Y/m/d");echo '<br>';
 					 	$current_time_out = date("h:i:s");
 
 					 	$update_result = array(
@@ -110,9 +111,8 @@ header('Content-Type: application/json');
 					 		);
 
 		$update_data = $this->admin_model->update("userattendence",$update_result,$where);
-
-			$array_json=['Status'=>'Thank You, Successfully Checked Out']; }
-    echo json_encode($array_json);
+					 	echo 'updated';die();
+					 }
 
 	}
 
@@ -1173,7 +1173,7 @@ $expense_salary_data = array(
 
 
 $this->admin_model->update('pending_students_fees',array('status' => 1),array('id' =>$PendindID));
-$this->admin_model->update('student',array('admission_fee' => 0),array('studentID' =>$ID));
+
 		if ($this->admin_model->insert($data,"student_fee")) {	
 			$feeID=$this->db->insert_id();
 			if ($_POST['installment']!="" && $_POST['is_installment']!=0) {

@@ -327,7 +327,7 @@ a:active,a:focus,a:hover {
     min-height: 60px;
     border-radius: 0;
     margin-bottom: 0;
-    background-color: #263238
+    background-color: rgba(71, 185, 243, 0.611764705882353);
 }
 
 .main-header .top-nav .navbar-brand {

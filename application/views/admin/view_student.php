@@ -155,7 +155,7 @@
     <td>
         <a href="<?php echo base_url() ?>admin/edit_student/<?php echo $student['studentID'] ?>"><i class="fa fa-edit fa-2x"></i></a>
 
-            <a href="<?php echo base_url() ?>admin/pdf_student/<?php echo $student['studentID'] ?>"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
+            <a href="<?php echo base_url() ?>admin/pdf_student/<?php echo $student['studentID'] ?>" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
             <a href="<?php echo base_url() ?>admin/view_fees/<?php echo $student['studentID'] ?>" target="_blank"><i class="fa fa-money fa-2x" aria-hidden="true"></i></a>
 
                                                         

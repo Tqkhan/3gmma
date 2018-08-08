@@ -238,109 +238,17 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 	}
 
 
-	function view_attendence_students()
-	{
-		// print_r($_SESSION['campus_id']);die();
-	
-		$id = $this->input->post('filter_course');
-		$month_id = $this->input->post('filter_month');
+	public function view_attendence_students($value='')
+    {
+              
+               $textdata['data_attendence']=$this->db->query("select student.studentID,student.student_name,userattendence.*,TIMEDIFF(userattendence.checkout_time,userattendence.checkin_time) as time_df from userattendence INNER JOIN student on (student.studentID=userattendence.studentID) ORDER BY userattendence.id DESC
+")->result_array();
 
-if($id == null && $month_id != null )
-{
-		
-$start = date('Y-'.$month_id.'-01');
-$date    =    $start;//your given date
-
-$first_date_find = strtotime(date("Y-m-d", strtotime($date)) . ", first day of this month");
-$first_date = date("Y-m-d",$first_date_find);
-
-$last_date_find = strtotime(date("Y-m-d", strtotime($date)) . ", last day of this month");
-$last_date = date("Y-m-d",$last_date_find);
-
-$this->db->select('userattendence.*,student.student_name')
-			->from("userattendence")
-			->join("students_courses",'students_courses.studentID = userattendence.studentID')
-			->join("course",'course.courseID = students_courses.courseID')
-			->join("student",'student.studentID = userattendence.studentID')
-			->where('userattendence.checkin_date >=', $first_date)
-			->where('userattendence.checkin_date <=', $last_date)
-			->group_by('userattendence.id');
-			$textdata['data_attendence'] = $this->db->get()->result_array();
-
-
-			// echo'<pre>';print_r($textdata['data_attendence']);die();
-		
-}
-else if( $id != null && $month_id == null )
-{
-	$this->db->select('userattendence.*,student.student_name')
-			->from("userattendence")
-			->join("students_courses",'students_courses.studentID = userattendence.studentID')
-			->join("course",'course.courseID = students_courses.courseID')
-			->join("student",'student.studentID = userattendence.studentID')
-			->where('course.courseID', $id)
-			->where('students_courses.campusID', $_SESSION['campus_id']);
-			$textdata['data_attendence'] = $this->db->get()->result_array();
-}
-else if( $id != null && $month_id != null )
-{
-	$start = date('Y-'.$month_id.'-01');
-	$date    =    $start;//your given date
-
-	$first_date_find = strtotime(date("Y-m-d", strtotime($date)) . ", first day of this month");
-	$first_date = date("Y-m-d",$first_date_find);
-
-	$last_date_find = strtotime(date("Y-m-d", strtotime($date)) . ", last day of this month");
-	$last_date = date("Y-m-d",$last_date_find);
-
-	$this->db->select('userattendence.*,student.student_name')
-			->from("userattendence")
-			->join("students_courses",'students_courses.studentID = userattendence.studentID')
-			->join("course",'course.courseID = students_courses.courseID')
-			->join("student",'student.studentID = userattendence.studentID')
-			->where('userattendence.checkin_date >=', $first_date)
-			->where('userattendence.checkin_date <=', $last_date)
-			->where('course.courseID', $id)
-			->where('students_courses.campusID', $_SESSION['campus_id'])
-			->group_by('userattendence.id');
-			$textdata['data_attendence'] = $this->db->get()->result_array();
-			// echo'<pre>';print_r($textdata['data_attendence']);die();
-
-}
-else
-{
-			$this->db->select('a.studentID,a.student_name,b.*')
-			->from("student AS a")
-			->join("userattendence AS b",'a.studentID = b.studentID')
-			->join("students_courses AS c","find_in_set(c.studentID, b.studentID)","left",false)
-			->join('course AS d', 'd.courseID = c.courseID', 'left')
-			->where('c.campusID', $_SESSION['campus_id'])
-			->group_by('a.studentID');
-
-			$textdata['data_attendence'] = $this->db->get()->result_array();
-			// echo '<pre>';print_r($textdata);die();
-}
-
-					 
-		$textdata['courses']=$this->admin_model->get("course");
-		// echo'<pre>';print_r($textdata);die();
-
-		// SELECT  a.trainerID, a.trainer_name FROM trainer a 
-		// INNER JOIN course b 
-		// ON FIND_IN_SET(b.courseID, a.courseID) 
-		// where b.courseID = 3 and  GROUP BY a.trainerID
-
-
+    	
 		$this->load->view('admin/header');
 		$this->load->view('admin/view_attendence_students',$textdata);
 		$this->load->view('admin/footer');
-
-
-
-
-
-
-	}
+    }
 
 
 
@@ -1062,7 +970,7 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 						
 						$this->db->where('students_courses.campusID',$_SESSION['campus_id']);
 						}
-						$this->db->group_by('student.studentID');
+						// $this->db->group_by('student.studentID');
 		$data['students'] = $this->db->get()->result_array();
 		// echo '<pre>';print_r($query);die();
 		$this->load->view('admin/header',$data);
@@ -1243,8 +1151,34 @@ $this->admin_model->update('student',array('admission_fee' => 0),array('studentI
 	}
 	public function insert_student()
 	{
-$data=$_POST;
 
+       $saved=$_POST['joindate'];
+
+	  
+
+$date1 = $saved;
+$date2 = date('Y-m-d');
+
+$ts1 = strtotime($date1);
+$ts2 = strtotime($date2);
+
+$year1 = date('Y', $ts1);
+$year2 = date('Y', $ts2);
+
+$month1 = date('m', $ts1);
+$month2 = date('m', $ts2);
+
+$diff = (($year2 - $year1) * 12) + ($month2 - $month1);
+
+
+// print_r($diff);
+
+ 
+
+$data=$_POST;
+	
+// print_r($data);
+ // die();
 // Image uploading  OR  File Uploading
 ////////////////////////////////////
 
@@ -1307,15 +1241,31 @@ for($i= 0; $i < $count_array_course; $i++)
 }
 //print_r($course_data_id);die;
 		//print_r($id);die();
+
+		
 	
-		
 		if ($course_data_id) {
-			$insertTable_data = array(
-		'studentID' => $id,
-		'date'=> $_POST['joindate'],
-		
-	);
-		$studentID = $this->admin_model->insert($insertTable_data,"pending_students_fees");
+			if ($diff==0) {
+				$insertTable_data = array(
+				'studentID' => $id,
+				'date'=> $_POST['joindate'],
+				);
+			$studentID = $this->admin_model->insert($insertTable_data,"pending_students_fees");
+		}else{
+   
+			for ($i=0; $i <$diff ; $i++) { 
+			 $date_d=strtotime($_POST['joindate'].$i.' MONTH');
+
+				$insertTable_data = array(
+				'studentID' => $id,
+				'date'=>  date('Y-m-d',$date_d),
+				);
+
+			$studentID = $this->admin_model->insert($insertTable_data,"pending_students_fees");
+			}
+
+		}
+
 		$this->session->set_flashdata('message', '<span><strong>Success</strong></span><p>Your Record Inserted Successfully</p>');
 		$this->session->set_flashdata('is_popup', true);
 

@@ -1,4 +1,3 @@
-
            
             <div class="content-wrapper">
                 <div class="container">
@@ -100,13 +99,13 @@ $formated_date2 = str_replace("/","-",$data['checkout_date']); ?>
  // $seconds = strtotime($date_two) - strtotime($date_one);
  // echo $hour  = $seconds / 60 /  60;
 
-
-$datetime1 = new DateTime($date_one);
-$datetime2 = new DateTime($date_two);
-$interval = $datetime1->diff($datetime2);
-echo $interval->format('%h')." hr / ".$interval->format('%i')." min / ".$interval->format('%s')." sec ";
-
-
+   if($data['checkout_time']){
+   
+echo $data['time_df'];
+   
+   }else{
+    echo "No Data Found";
+    }
     ?>
 
 

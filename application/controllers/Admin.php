@@ -1081,7 +1081,7 @@ $expense_salary_data = array(
 
 
 $this->admin_model->update('pending_students_fees',array('status' => 1),array('id' =>$PendindID));
-$this->admin_model->update('student',array('admission_fee' => 0),array('studentID' =>$ID));
+$this->admin_model->update('student',array('admission_fee' => 0,'membership_fee'=>0),array('studentID' =>$ID));
 		if ($this->admin_model->insert($data,"student_fee")) {	
 			$feeID=$this->db->insert_id();
 			if ($_POST['installment']!="" && $_POST['is_installment']!=0) {

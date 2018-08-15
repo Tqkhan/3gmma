@@ -141,7 +141,8 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
                                         <div class="form-group row">
 											<label for="example-text-input" class="col-sm-3 col-form-label">Membership Fee  </label>
 											<div class="col-sm-9">
-												<input class="form-control" name=""   placeholder="Other Fee" value="<?php echo $student['membership_fee'] ?>" type="text" id="" readonly>
+												<input class="form-control" name=""   placeholder="Other Fee" value="<?php if ($student['membership_fee']==0) { echo "Paid"; }
+												else{ echo $student['membership_fee']; } ?>" name="membership_fee" type="text" id="" readonly>
 											</div>
 										</div>
 										<div class="form-group row">

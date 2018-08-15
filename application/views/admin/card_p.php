@@ -137,7 +137,7 @@ display: inherit;
                             <div class="card-content-languages">
                                 <div class="card-content-languages-group back" >
                                     <div>
-                                        <img src="http://chart.apis.google.com/chart?cht=qr&chl=<?php echo $data['qrcode'] ?>&chs=60" class="img-responsive" style="height: 71px;" alt="" >
+                                        <img src="http://chart.apis.google.com/chart?cht=qr&chl=<?php echo $data['qr'] ?>&chs=60" class="img-responsive" style="height: 71px;" alt="" >
                                     </div>
                                     <div style="width: 210px;">
                                         <!-- <ul>
@@ -203,4 +203,24 @@ display: inherit;
         window.print();
     }
 </script>
-                       
+             
+                   <script type="text/javascript">
+    $("#generate").click(function() {
+    var data = $("#codeData").val();
+    var size = $("#codeSize").val();
+    if(data == "") {
+        alert('please enter a url or text');
+        return false;
+    } else {
+        if( $("#image").is(':empty')) {
+            $("#image").append("<img src='http://chart.apis.google.com/chart?cht=qr&chl=" + data + "&chs=" + size + "' alt='qr' />");
+            return false;
+        } else {
+            $("#image").html("");
+            $("#image").append("<img src='http://chart.apis.google.com/chart?cht=qr&chl=" + data + "&chs=" + size + "' alt='qr' />");
+            $("#link").append("<a href='http://chart.apis.google.com/chart?cht=qr&chl=" + data + "&chs=" + size + "'>Permalink</a>");
+            return false;
+        }
+    }
+});
+</script>          

@@ -1253,7 +1253,7 @@ for($i= 0; $i < $count_array_course; $i++)
 			$studentID = $this->admin_model->insert($insertTable_data,"pending_students_fees");
 		}else{
    
-			for ($i=0; $i <$diff ; $i++) { 
+			for ($i=0; $i <=$diff ; $i++) { 
 			 $date_d=strtotime($_POST['joindate'].$i.' MONTH');
 
 				$insertTable_data = array(

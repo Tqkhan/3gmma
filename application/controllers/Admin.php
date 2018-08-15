@@ -2181,7 +2181,27 @@ $where=array('expenseID'=>$s_id);
 	}
 
 
+public function card_p($s_id)
+	{
+		$where=array('studentID'=>$s_id);
 
+$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,GROUP_CONCAT(students_courses.Timing SEPARATOR ",") AS course_timing,GROUP_CONCAT(students_courses.Fee SEPARATOR ",") AS course_fee,GROUP_CONCAT(students_courses.courseID SEPARATOR ",") AS course_ID,GROUP_CONCAT(students_courses.TrainerID SEPARATOR ",") AS trainer_ID,GROUP_CONCAT(students_courses.id SEPARATOR ",") AS course_data_ID,GROUP_CONCAT(students_courses.TrainerID SEPARATOR ",") AS TrinerID_data_ID')
+						->from('student')
+						->join('students_courses', 'student.studentID = students_courses.studentID')
+						->join('course', 'course.courseID = students_courses.courseID')
+						->join('trainer', 'trainer.trainerID=students_courses.trainerID')
+						->where('student.studentID', $s_id)
+						->group_by('student.studentID');
+		$result['student']=$this->db->get()->result_array();
+
+// echo '<pre>';print_r($result['student']);die();
+		
+		$result['data'] = $this->admin_model->get_where_single('student',$where);
+		$this->load->view('admin/header');
+		$this->load->view('admin/card_p',$result);
+		$this->load->view('admin/footer');
+
+	}
 
 
 	public function check_month()

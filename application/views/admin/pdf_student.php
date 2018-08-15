@@ -46,6 +46,7 @@
                                                         
                                                         <div class="col-lg-12">
                 <img src="<?php base_url();?>assets/assets/dist/img/header.png">
+               
                                                         </div>
 
                                                     </div>
@@ -91,6 +92,7 @@
                                                 <div class="col-sm-4 col-md-4 col-sm-4 col-xs-4 text-left">
                                                 
                                                     <img src="<?php echo base_url(); ?><?php echo $data['user_image'] ?>" class="img-responsive pull-left img-src" alt="" style="height: 115px;">
+                                                    <img class="pull-right" style=" margin-top: 10px;" src="http://chart.apis.google.com/chart?cht=qr&chl=<?php echo $data['qrcode'] ?>&chs=60">
                                                 </div>
                                                 
                                             </div>
@@ -544,3 +546,23 @@
             change_course()
         });
     </script>
+      <script type="text/javascript">
+    $("#generate").click(function() {
+    var data = $("#codeData").val();
+    var size = $("#codeSize").val();
+    if(data == "") {
+        alert('please enter a url or text');
+        return false;
+    } else {
+        if( $("#image").is(':empty')) {
+            $("#image").append("<img src='http://chart.apis.google.com/chart?cht=qr&chl=" + data + "&chs=" + size + "' alt='qr' />");
+            return false;
+        } else {
+            $("#image").html("");
+            $("#image").append("<img src='http://chart.apis.google.com/chart?cht=qr&chl=" + data + "&chs=" + size + "' alt='qr' />");
+            $("#link").append("<a href='http://chart.apis.google.com/chart?cht=qr&chl=" + data + "&chs=" + size + "'>Permalink</a>");
+            return false;
+        }
+    }
+});
+</script>

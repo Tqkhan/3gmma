@@ -1069,7 +1069,10 @@ $expense_salary_data = array(
 		$st=$this->db->query('select * from student_fee where studentID='.$ID.' order by feeID DESC limit 0,1')->row_array();
 		 // die("<pre>".print_r($st));
 		$PendindID = $data['pendingID'];
+		unset($data['ad_fee']);
+		unset($data['mem_fee']);
 		unset($data['pendingID']);
+		unset($data['alltotal']);
 		unset($data['installment_total']);
 		$delete_data = array(
 			'studentID'=>$ID 
@@ -1081,7 +1084,22 @@ $expense_salary_data = array(
 
 
 $this->admin_model->update('pending_students_fees',array('status' => 1),array('id' =>$PendindID));
-$this->admin_model->update('student',array('admission_fee' => 0,'membership_fee'=>0),array('studentID' =>$ID));
+
+if (!empty($_POST['ad_fee']) && !empty($_POST['mem_fee'])) {
+	$data_update=['admission_fee'=>0,'membership_fee'=>0];
+}
+else if(!empty($_POST['ad_fee']) && empty($_POST['mem_fee'])){
+	$data_update=['admission_fee'=>0];
+}
+else if(empty($_POST['ad_fee']) && !empty($_POST['mem_fee'])){
+	$data_update=['membership_fee'=>0];
+}
+
+if($data_update){
+$this->admin_model->update('student',$data_update,array('studentID' =>$ID));
+
+}
+
 		if ($this->admin_model->insert($data,"student_fee")) {	
 			$feeID=$this->db->insert_id();
 			if ($_POST['installment']!="" && $_POST['is_installment']!=0) {
@@ -1183,7 +1201,7 @@ $data=$_POST;
 ////////////////////////////////////
 
 $config['upload_path']          = 'uploads/userimage/';
-$config['allowed_types']        = 'gif|jpg|png';
+$config['allowed_types']        = 'gif|jpg|jpeg|png';
 $config['max_size']             = 42000;
 $config['max_width']            = 41024;
 $config['max_height']           = 4768;
@@ -1356,7 +1374,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function insert_category()
 	{
              $config['upload_path']   = './uploads/category/';
-             $config['allowed_types'] = 'gif|jpg|png';
+             $config['allowed_types'] = 'gif|jpg|jpeg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('categoryImage')) {
                   $data=array(
@@ -1388,7 +1406,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function insert_product()
 	{
              $config['upload_path']   = './uploads/product/';
-             $config['allowed_types'] = 'gif|jpg|png';
+             $config['allowed_types'] = 'gif|jpg|jpeg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('productImage')) {
                   $data=$_POST;
@@ -1413,7 +1431,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function update_product($productID)
 	{
              $config['upload_path']   = './uploads/product/';
-             $config['allowed_types'] = 'gif|jpg|png';
+             $config['allowed_types'] = 'gif|jpg|jpeg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('productImage')) {
                   $data=$_POST;
@@ -1439,7 +1457,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function insert_subcategory()
 	{
              $config['upload_path']   = './uploads/subcategory/';
-             $config['allowed_types'] = 'gif|jpg|png';
+             $config['allowed_types'] = 'gif|jpg|jpeg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('subCategoryImage')) {
                   $data=array(
@@ -1514,7 +1532,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function update_category($categoryID)
 	{
              $config['upload_path']   = './uploads/category/';
-             $config['allowed_types'] = 'gif|jpg|png';
+             $config['allowed_types'] = 'gif|jpg|jpeg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('categoryImage')) {
                   $data=array(
@@ -1546,7 +1564,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function update_subcategory($subcategoryID)
 	{
            $config['upload_path']   = './uploads/subcategory/';
-             $config['allowed_types'] = 'gif|jpg|png';
+             $config['allowed_types'] = 'gif|jpg|jpeg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('subCategoryImage')) {
                   $data=array(
@@ -1799,10 +1817,10 @@ function updatemultitrainer(){
 
 		if (!empty($_FILES['profile_image']['name'])) {
 			$config['upload_path']          = 'uploads/userimage/';
-			$config['allowed_types']        = 'gif|jpg|png';
+			$config['allowed_types']        = 'gif|jpg|jpeg|png';
 			$config['max_size']             = 200000;
-			$config['max_width']            = 1024;
-			$config['max_height']           = 768;
+			$config['max_width']            = 41024;
+			$config['max_height']           = 4768;
 			$this->load->library('upload', $config);
 			// put input field name below condition === Here name is profile_image
 			 if (!$this->upload->do_upload('profile_image'))

@@ -146,7 +146,7 @@ margin: 0;
                                 </a>
                                 <ul class="dropdown-menu dropdown-user">
 
-                                    <li><a href="#"><i class="ti-user"></i>&nbsp; <?php echo $_SESSION['role']?></a></li>
+                                    <li><a href="#"><i class="ti-user"></i>&nbsp; <?php echo $_SESSION['user_name']?></a></li>
                                     <li><a href="<?php echo base_url(); ?>admin/edit_profile_user"><i class="ti-user"></i>&nbsp; Profile</a></li>
                                     
                                     <li><a href="<?php echo base_url() ?>admin/logout"><i class="ti-layout-sidebar-left"></i>&nbsp; Logout</a></li>

@@ -414,17 +414,27 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 	public function view_inactive_students()
 	{
 		$this->is_login();
-		$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,campus.name AS campus')
+		$query = $this->db->select('student.*, users.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,campus.name AS campus')
 						->from('student')
 						->join('students_courses', 'student.studentID = students_courses.studentID', 'left')
 						->join('course', 'course.courseID = students_courses.courseID', 'left')
 						->join('trainer', 'trainer.trainerID=students_courses.trainerID', 'left')
 						->join('campus','students_courses.campusID = campus.id', 'left')
+						->join('users','campus.id = users.campus_id', 'left')
 						->where('student.status', 'in_active')
 						->order_by("student.studentID",'DESC')
 						->group_by('student.studentID');
-						if ($_SESSION['main'] == "0") {
+						// if ($_SESSION['main'] == "0") {
+						//     $this->db->where('course.campus_id', $_SESSION['campus_id']);
+						// } 
+						if ($_SESSION['adminID'] == "0") {
 						    $this->db->where('course.campus_id', $_SESSION['campus_id']);
+						} 
+						else if ($_SESSION['adminID'] == "1") {
+						    $this->db->where('users.campus_id', $_SESSION['campus_id']);
+						}
+						else if ($_SESSION['adminID'] == "2") {
+						    $this->db->where('users.campus_id', $_SESSION['campus_id']);
 						} 
 
 		$data['students']=$this->db->get()->result_array();
@@ -441,19 +451,26 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 	public function view_active_students()
 	{
 		$this->is_login();
-		$query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,campus.name AS campus')
+		$query = $this->db->select('student.*, users.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,campus.name AS campus')
 						->from('student')
 						->join('students_courses', 'student.studentID = students_courses.studentID','left')
 						->join('course', 'course.courseID = students_courses.courseID','left')
 						->join('trainer', 'trainer.trainerID=students_courses.trainerID','left')
 						->join('campus','students_courses.campusID = campus.id', 'left')
+						->join('users','campus.id = users.campus_id', 'left')
 						->where('student.status', 'active')
 						->order_by("student.studentID",'DESC')
 						->group_by('student.studentID');
-						if ($_SESSION['main'] == "0") {
+						if ($_SESSION['adminID'] == "0") {
 						    $this->db->where('course.campus_id', $_SESSION['campus_id']);
 						} 
-
+						else if ($_SESSION['adminID'] == "1") {
+						    $this->db->where('users.campus_id', $_SESSION['campus_id']);
+						}
+						else if ($_SESSION['adminID'] == "2") {
+						    $this->db->where('users.campus_id', $_SESSION['campus_id']);
+						} 
+						// print_r($_SESSION['main']);die();
 		$data['students']=$this->db->get()->result_array();
 		$data['length_of_rows'] = sizeof($data['students']);
 		$data['title']="View Active Students";

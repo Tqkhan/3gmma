@@ -48,7 +48,7 @@
                                                 </thead>
             <tbody>
 			<?php 
-             $total=0;
+             $submit_total=0;
               $i=1;
             foreach ($fees as $fee): ?>
 
@@ -71,7 +71,7 @@
 
                 </tr>
 				<?php
-                 $total+=$fee['submit_amount'];
+                 $submit_total+=$fee['submit_amount'];
                   $i++;
                  endforeach ?>
                    <tfoot>
@@ -81,9 +81,9 @@
                            <td></td>
                            <td></td>
                            <td></td>
-                           <td></td>
                            <td>Grand Total :</td>
-                           <td><?php echo $total; ?></td>
+                           <td><strong><?php echo number_format(); ?></td>
+                           <td><strong><?php echo number_format($submit_total); ?></strong></td>
                            <td></td>
                            <td></td>
                            <td></td>

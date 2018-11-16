@@ -231,7 +231,7 @@ td{
                          <tr>
                            
                            <td>Extra Charges</td> 
-                           <td><span class="total"><?php echo $expense_data['extra_charges']; ?></span></td>  
+                           <td><span class="total"><?php echo $expense_data['other_fee']; ?></span></td>  
                                 
                                 
                          </tr>
@@ -250,7 +250,7 @@ td{
                               $sub_total = $expense_data['student_fee']+
 $expense_data['admission_fee']+
 $expense_data['membership_fee']+
-$expense_data['extra_charges']-
+$expense_data['other_fee']-
 $expense_data['discountfee'];
  ?>
 
@@ -320,7 +320,7 @@ $expense_data['discountfee'];
                               $sub_totalwd = $expense_data['student_fee']+
 $expense_data['admission_fee']+
 $expense_data['membership_fee']+
-$expense_data['extra_charges']-
+$expense_data['other_fee']-
 $expense_data['discountfee']-$expense_data['discount_current'];
                           echo $sub_totalwd+$expense_data['previous_installment'];
                            ?>

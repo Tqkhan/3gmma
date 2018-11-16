@@ -92,7 +92,7 @@
                                                 <div class="col-sm-4 col-md-4 col-sm-4 col-xs-4 text-left">
                                                 
                                                     <img src="<?php echo base_url(); ?><?php echo $data['user_image'] ?>" class="img-responsive pull-left img-src" alt="" style="height: 115px;">
-                                                    <img class="pull-right" style=" margin-top: 10px;" src="http://chart.apis.google.com/chart?cht=qr&chl=<?php echo $data['qrcode'] ?>&chs=60">
+                                                    <img class="pull-right" style=" margin-top: 10px;" src="http://chart.apis.google.com/chart?cht=qr&chl=<?php echo $data['qr'] ?>&chs=60">
                                                 </div>
                                                 
                                             </div>

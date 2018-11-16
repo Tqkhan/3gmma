@@ -101,8 +101,10 @@ $formated_date2 = str_replace("/","-",$data['checkout_date']); ?>
 
    if($data['checkout_time']){
    
-echo $data['time_df'];
+$total_diff=explode(':',$data['time_df']);
    
+   echo $total_diff[0]." Hours " .$total_diff[1]." Minutes ".round($total_diff[2])." Seconds";
+     
    }else{
     echo "No Data Found";
     }

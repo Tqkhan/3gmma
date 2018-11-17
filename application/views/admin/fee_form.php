@@ -107,16 +107,9 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
 										</div>
 										<div class="form-group row">
 											<label for="example-text-input" class="col-sm-3 col-form-label">Admission Fee  </label>
-											<div class="col-sm-8">
+											<div class="col-sm-9">
 												<input class="form-control" value="<?php if ($student['admission_fee']==0) { echo "Paid"; }
 												else{ echo $student['admission_fee']; } ?>" name="admission_fee"   placeholder="Admission Fee  " type="Admission Fee" id="example-text-input" readonly>
-											</div>
-											<div class="col-sm-1">
-												<div class="checkbox checkbox-primary">
-                                                <input id="checkbox1" type="checkbox" name="ad_fee" <?php if ($student['admission_fee']==0) { echo "disabled=''"; }
-												 ?> checked="">
-                                                    <label for="checkbox1"></label>
-                                                </div>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -142,44 +135,14 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
                                                 <input style="display: none;" class="form-control" name="membership_fee" placeholder="Enter Fee Amount Here" type="number" required="" id="example-text-input" value="<?php  echo $student['membership_fee']; ?>" readonly>
                                                 <input style="display: none;" class="form-control" name="other_fee" placeholder="Enter Fee Amount Here" type="number" required="" id="example-text-input" value="<?php  echo $student['other_fee']; ?>" readonly>
                                                 <input style="display: none;" class="form-control" name="discountfee" placeholder="Enter Fee Amount Here" type="number" required="" id="example-text-input" value="<?php  echo $student['discountfee']; ?>" readonly>
-                                                <input style="display: none;" class="form-control" name="total" placeholder="Enter Fee Amount Here" type="number" required="" id="example-text-input" value="<?php  echo $student['total']; ?>" readonly>
+                                                <input  class="form-control" name="total" placeholder="Enter Fee Amount Here" type="number" required="" id="example-text-input" value="<?php echo ($student['admission_fee']+$student['membership_fee']+$student['monthly_fee']+$student['other_fee'])-$student['discountfee'] ?>" readonly>
                                         </div>
                                             </div>
                                         <div class="form-group row">
 											<label for="example-text-input" class="col-sm-3 col-form-label">Membership Fee  </label>
-											<div class="col-sm-8">
-												<input class="form-control" name="membership_fee"   placeholder="Other Fee" value="<?php if ($student['membership_fee']==0) { echo "Paid"; }
-												else{ echo $student['membership_fee']; } ?>" name="membership_fee" type="text" id="text1" readonly>
-											</div>
-											<div class="col-sm-1">
-												<div class="checkbox checkbox-primary">
-													<input id="checkbox2" type="checkbox" name="mem_fee" value="" <?php if ($student['membership_fee']==0) { echo "disabled=''"; }
-												 ?> checked="">
-                                                    <label for="checkbox2"></label>
-                                                    
-<script type="text/javascript">
-	$("#checkbox1").click(function () {
-		if ($(this).prop("checked")) {
-			$("[name=admission_fee]").val("<?php if ($student['admission_fee']==0) { echo "Paid"; }
-				else{ echo $student['admission_fee']; } ?>");
-		}
-		else {
-			$("[name=admission_fee]").val(0);
-		}
-	});
-	$("#checkbox2").click(function () {
-		if ($(this).prop("checked")) {
-			$("[name=membership_fee]").val("<?php if ($student['membership_fee']==0) { echo "Paid"; }
-			else{ echo $student['membership_fee']; } ?>");
-		}
-		else {
-			$("[name=membership_fee]").val(0);
-		}
-	});
-
-
-</script>
-                                                </div>
+											<div class="col-sm-9">
+												<input class="form-control" name=""   placeholder="Other Fee" value="<?php if ($student['membership_fee']==0) { echo "Paid"; }
+												else{ echo $student['membership_fee']; } ?>" name="membership_fee" type="text" id="" readonly>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -197,7 +160,7 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
 										<div class="form-group row">
 											<label for="example-text-input" class="col-sm-3 col-form-label">Total  </label>
 											<div class="col-sm-9">
-												<input class="form-control" value="<?php echo ($student['admission_fee']+$student['membership_fee']+$student['monthly_fee']+$student['other_fee'])-$student['discountfee'] ?>" name="alltotal"   placeholder="Total" type="text" id="t" readonly>
+												<input class="form-control" value="<?php echo ($student['admission_fee']+$student['membership_fee']+$student['monthly_fee']+$student['other_fee'])-$student['discountfee'] ?>" name=""   placeholder="Total" type="text" id="" readonly>
 											</div>
 										</div>
                                             <div class="form-group row">
@@ -241,7 +204,7 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
                                             </div>
                                         </div>
                                         <div class="form-group row" id="Create_installment" style="display:none">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label">Select Installment</label>
+                                            <label for="example-text-input" class="col-sm-3 col-form-label">Installment Amount</label>
                                             <div class="col-sm-9">
                                                <input class="form-control" name="installment" placeholder="installment" type="number" max="<?php echo $student['admission_fee']+$student['membership_fee']+$student['other_fee']+$student['monthly_fee']+$student1['installment']-$student['discountfee']; ?>"  id="" value="0">
                                                 <input class="form-control" name="is_installment"  placeholder="charges if any" type="hidden"  id="">
@@ -278,34 +241,6 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
 
 <script type="text/javascript">
 	$(document).ready(function () {
-      
-       var total_fee=$('[name=alltotal]').val();
-       var admission_fee=$('[name=admission_fee]').val();
-		$('[name=ad_fee]').change(function() {
-			  var new_total=0;
-			  var new_admission=$('[name=admission_fee]').val();
-			  if (new_admission==0) {
-                  new_total=total_fee-admission_fee;
-                  $('[name=alltotal]').val(new_total);
-			  }else{
-			  	 new_total=total_fee;
-                  $('[name=alltotal]').val(parseInt(new_total));
-			  }
-		});
-
-		var total_fee=$('[name=alltotal]').val();
-       	var membership_fee=$('[name=membership_fee]').val();
-		$('[name=mem_fee]').change(function() {
-			  var new_total=0;
-			  var new_member=$('[name=membership_fee]').val();
-			  if (new_member==0) {
-                  new_total=total_fee-membership_fee;
-                  $('[name=alltotal]').val(new_total);
-			  }else{
-			  	 new_total=total_fee;
-                  $('[name=alltotal]').val(parseInt(new_total));
-			  }
-		});
 
     	$('[name=is_installment]').val(0);
     $("#btn").click(function () {
@@ -334,7 +269,4 @@ $student1=$this->db->query('select sf.is_installment,sf.is_previous,sf.installme
 			$('[name=is_discount]').val(0);	
 		}
 	});
-
-
 </script>
-

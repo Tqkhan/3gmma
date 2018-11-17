@@ -412,38 +412,38 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 
 
 	public function view_inactive_students()
-	{
-		$this->is_login();
-		$query = $this->db->select('student.*, users.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,campus.name AS campus')
-						->from('student')
-						->join('students_courses', 'student.studentID = students_courses.studentID', 'left')
-						->join('course', 'course.courseID = students_courses.courseID', 'left')
-						->join('trainer', 'trainer.trainerID=students_courses.trainerID', 'left')
-						->join('campus','students_courses.campusID = campus.id', 'left')
-						->join('users','campus.id = users.campus_id', 'left')
-						->where('student.status', 'in_active')
-						->order_by("student.studentID",'DESC')
-						->group_by('student.studentID');
-						// if ($_SESSION['main'] == "0") {
-						//     $this->db->where('course.campus_id', $_SESSION['campus_id']);
-						// } 
-						if ($_SESSION['adminID'] == "0") {
-						    $this->db->where('course.campus_id', $_SESSION['campus_id']);
-						} 
-						else if ($_SESSION['adminID'] == "1") {
-						    $this->db->where('users.campus_id', $_SESSION['campus_id']);
-						}
-						else if ($_SESSION['adminID'] == "2") {
-						    $this->db->where('users.campus_id', $_SESSION['campus_id']);
-						} 
+		{
+			$this->is_login();
+			$query = $this->db->select('student.*, users.*, GROUP_CONCAT(course.course_title SEPARATOR ",") AS course_title,GROUP_CONCAT(trainer.trainer_name SEPARATOR ",") AS trainer,campus.name AS campus')
+							->from('student')
+							->join('students_courses', 'student.studentID = students_courses.studentID', 'left')
+							->join('course', 'course.courseID = students_courses.courseID', 'left')
+							->join('trainer', 'trainer.trainerID=students_courses.trainerID', 'left')
+							->join('campus','students_courses.campusID = campus.id', 'left')
+							->join('users','campus.id = users.campus_id', 'left')
+							->where('student.status', 'in_active')
+							->order_by("student.studentID",'DESC')
+							->group_by('student.studentID');
+							// if ($_SESSION['main'] == "0") {
+							//     $this->db->where('course.campus_id', $_SESSION['campus_id']);
+							// } 
+							if ($_SESSION['adminID'] == "0") {
+							    $this->db->where('course.campus_id', $_SESSION['campus_id']);
+							} 
+							else if ($_SESSION['adminID'] == "1") {
+							    $this->db->where('users.campus_id', $_SESSION['campus_id']);
+							}
+							else if ($_SESSION['adminID'] == "2") {
+							    $this->db->where('users.campus_id', $_SESSION['campus_id']);
+							} 
 
-		$data['students']=$this->db->get()->result_array();
-		$data['length_of_rows'] = sizeof($data['students']);
-		$data['title']="View In Active Students";
-		$this->load->view('admin/header',$data);
-		$this->load->view('admin/view_inactive_students');
-		$this->load->view('admin/footer');  
-	}
+			$data['students']=$this->db->get()->result_array();
+			$data['length_of_rows'] = sizeof($data['students']);
+			$data['title']="View In Active Students";
+			$this->load->view('admin/header',$data);
+			$this->load->view('admin/view_inactive_students');
+			$this->load->view('admin/footer');  
+		}
 
 
 
@@ -479,6 +479,7 @@ $data['user_data']=$this->admin_model->get_where_single("pending_students_fees",
 		$this->load->view('admin/footer');
 
 	}
+
 
 
 
@@ -923,7 +924,80 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 		$this->load->view('admin/view_expense');
 		$this->load->view('admin/footer');
 	}
-	public function view_fees($id= null)
+	// public function view_fees_one_student($id= null)
+	// {
+		
+		
+	// 	$this->db->select('sf.*')
+	// 	 ->from('student_fee sf')
+	// 	 ->join('student s', 's.studentID = sf.studentID')
+	// 	 ->join('students_courses sc', 'sc.studentID = s.studentID')
+	// 	 ->join('course c', 'c.courseID = sc.courseID')
+	// 	 ->order_by('sf.feeID')
+	// 	 ->group_by('sf.feeID');
+		  
+	// 	   if (!$id) {
+	// 	   	if ($_SESSION['main']!=1) {
+	// 	$this->db->where('sc.campusID',$_SESSION['campus_id']);			  	}
+	// 	  }
+	// 	  else{
+	// 	$this->db->where('s.studentID',$id);
+	// 	  }
+				   
+			
+				
+
+
+	// 	$data['fees'] = $this->db->get()->result_array();
+	// 	$this->load->view('admin/header',$data);
+	// 	$this->load->view('admin/view_fees_one_student');
+	// 	$this->load->view('admin/footer');
+	// }
+	public function view_fees_one_student($id= null)
+		{
+			
+
+			$this->db->select('pending_students_fees.*, std.monthly_fee');
+			$this->db->from('pending_students_fees')
+			  ->join('student std', 'std.studentID = pending_students_fees.studentID')
+
+
+			 // ->join('student_fee stdf', 'stdf.studentID = pending_students_fees.studentID' , 'left');
+		      // ->group_by('stdf.feeID');
+			// ->join('student_fee stdf', 'stdf.studentID = std.studentID')
+			->order_by('pending_students_fees.id' , 'DESC');
+			  $this->db->where('pending_students_fees.studentID' , $id);
+
+
+			//$data['fees']=$this->admin_model->get("student_fee");
+			/**/
+			// $this->db->select('sf.*')
+			// 		 ->from('student_fee sf')
+			// 		 ->join('student s', 's.studentID = sf.studentID')
+			// 		 ->join('students_courses sc', 'sc.studentID = s.studentID')
+			// 		 ->join('course c', 'c.courseID = sc.courseID')
+			// 		 ->order_by('sf.feeID')
+			// 		 ->group_by('sf.feeID');
+					  
+			// 		   if (!$id) {
+			// 		   	if ($_SESSION['main']!=1) {
+			// 		$this->db->where('sc.campusID',$_SESSION['campus_id']);			  	}
+			// 		  }
+			// 		  else{
+			// 		$this->db->where('s.studentID',$id);
+			// 		  }
+				/**/	   
+					  // }
+					
+
+
+			$data['fees'] = $this->db->get()->result_array();
+			   // print_r($data['fees']);die();
+			$this->load->view('admin/header',$data);
+			$this->load->view('admin/view_fees_one_student');
+			$this->load->view('admin/footer');
+		}
+	public function view_fees()
 	{
 		
 		//$data['fees']=$this->admin_model->get("student_fee");
@@ -935,14 +1009,11 @@ $query = $this->db->select('student.*, GROUP_CONCAT(course.course_title SEPARATO
 				 ->order_by('sf.feeID')
 				 ->group_by('sf.feeID');
 				  
-				   if (!$id) {
+				
 				   	if ($_SESSION['main']!=1) {
 				$this->db->where('sc.campusID',$_SESSION['campus_id']);			  	}
-				  }
-				  else{
-				$this->db->where('s.studentID',$id);
-				  }
-				   
+				 
+				
 				  // }
 				
 
@@ -1081,15 +1152,13 @@ $expense_salary_data = array(
 
 	public function insert_fee()
 	{
+		
 		$data=$_POST;
 		$ID = $data['studentID'];
 		$st=$this->db->query('select * from student_fee where studentID='.$ID.' order by feeID DESC limit 0,1')->row_array();
 		 // die("<pre>".print_r($st));
 		$PendindID = $data['pendingID'];
-		unset($data['ad_fee']);
-		unset($data['mem_fee']);
 		unset($data['pendingID']);
-		unset($data['alltotal']);
 		unset($data['installment_total']);
 		$delete_data = array(
 			'studentID'=>$ID 
@@ -1098,25 +1167,52 @@ $expense_salary_data = array(
 
 
 
+$id_data = $this->admin_model->update('pending_students_fees', $data ,array('id' =>$PendindID));
+
+			if ($_POST['installment']!="" && $_POST['is_installment']!=0) {
+				$this->db->update('pending_students_fees',
+			
+			[
+			'previous_installment'=>$st['installment'],
+		    'is_previous'=>$st['is_installment'],
+		    'status'=> 'Partial',
+			'is_installment'=>$_POST['is_installment'],
+			'installment'=>$_POST['installment_total']-$_POST['installment'],
+		    ]
+
+		    ,['studentID'=>$ID,'id'=>$PendindID]);
+			}
+			else{
+			$this->db->update('pending_students_fees',[
+		      'is_installment'=>0,'installment'=>0,
+		      'previous_installment'=>$st['installment'],
+		      'status'=> 'Paid',
+		      'is_previous'=>$st['is_installment'],
+		      ],['studentID'=>$ID,'id'=>$PendindID]);
+
+			}
 
 
-$this->admin_model->update('pending_students_fees',array('status' => 1),array('id' =>$PendindID));
 
-if (!empty($_POST['ad_fee']) && !empty($_POST['mem_fee'])) {
-	$data_update=['admission_fee'=>0,'membership_fee'=>0];
-}
-else if(!empty($_POST['ad_fee']) && empty($_POST['mem_fee'])){
-	$data_update=['admission_fee'=>0];
-}
-else if(empty($_POST['ad_fee']) && !empty($_POST['mem_fee'])){
-	$data_update=['membership_fee'=>0];
-}
+			// if ($_POST['installment']!="" && $_POST['is_installment']!=0) {
+			// 	$this->db->update('pending_students_fees',
+			// [
+			
+		 //    'status'=> 1,
+		 //    'payment_status'=> 'Partial',
+			
+		 //    ],['studentID'=>$ID,'id'=>$PendindID]);
+			// }
+			// else{
+			// $this->db->update('pending_students_fees',[
+		      
+		 //      'status'=> 1,
+		 //      'payment_status'=> 'Paid',
+		     
+		 //      ],['studentID'=>$ID,'id'=>$PendindID]);
 
-if($data_update){
-$this->admin_model->update('student',$data_update,array('studentID' =>$ID));
-
-}
-
+			// }
+$this->admin_model->update('student',array('admission_fee' => 0,'membership_fee'=>0),array('studentID' =>$ID));
 		if ($this->admin_model->insert($data,"student_fee")) {	
 			$feeID=$this->db->insert_id();
 			if ($_POST['installment']!="" && $_POST['is_installment']!=0) {
@@ -1124,6 +1220,7 @@ $this->admin_model->update('student',$data_update,array('studentID' =>$ID));
 			[
 			'previous_installment'=>$st['installment'],
 		    'is_previous'=>$st['is_installment'],
+		    'status'=> 'Partial',
 			'is_installment'=>$_POST['is_installment'],
 			'installment'=>$_POST['installment_total']-$_POST['installment'],
 		    ],['studentID'=>$ID,'feeID'=>$feeID]);
@@ -1132,6 +1229,7 @@ $this->admin_model->update('student',$data_update,array('studentID' =>$ID));
 			$this->db->update('student_fee',[
 		      'is_installment'=>0,'installment'=>0,
 		      'previous_installment'=>$st['installment'],
+		      'status'=> 'Paid',
 		      'is_previous'=>$st['is_installment'],
 		      ],['studentID'=>$ID,'feeID'=>$feeID]);
 
@@ -1218,7 +1316,7 @@ $data=$_POST;
 ////////////////////////////////////
 
 $config['upload_path']          = 'uploads/userimage/';
-$config['allowed_types']        = 'gif|jpg|jpeg|png';
+$config['allowed_types']        = 'gif|jpg|png';
 $config['max_size']             = 42000;
 $config['max_width']            = 41024;
 $config['max_height']           = 4768;
@@ -1284,6 +1382,8 @@ for($i= 0; $i < $count_array_course; $i++)
 				$insertTable_data = array(
 				'studentID' => $id,
 				'date'=> $_POST['joindate'],
+				'Payment_status'=> 'UnPaid',
+				'student_name'=> $_POST['student_name'],
 				);
 			$studentID = $this->admin_model->insert($insertTable_data,"pending_students_fees");
 		}else{
@@ -1294,6 +1394,8 @@ for($i= 0; $i < $count_array_course; $i++)
 				$insertTable_data = array(
 				'studentID' => $id,
 				'date'=>  date('Y-m-d',$date_d),
+				'Payment_status'=> 'UnPaid',
+				'student_name'=>  $_POST['student_name'],
 				);
 
 			$studentID = $this->admin_model->insert($insertTable_data,"pending_students_fees");
@@ -1391,7 +1493,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function insert_category()
 	{
              $config['upload_path']   = './uploads/category/';
-             $config['allowed_types'] = 'gif|jpg|jpeg|png';
+             $config['allowed_types'] = 'gif|jpg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('categoryImage')) {
                   $data=array(
@@ -1423,7 +1525,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function insert_product()
 	{
              $config['upload_path']   = './uploads/product/';
-             $config['allowed_types'] = 'gif|jpg|jpeg|png';
+             $config['allowed_types'] = 'gif|jpg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('productImage')) {
                   $data=$_POST;
@@ -1448,7 +1550,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function update_product($productID)
 	{
              $config['upload_path']   = './uploads/product/';
-             $config['allowed_types'] = 'gif|jpg|jpeg|png';
+             $config['allowed_types'] = 'gif|jpg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('productImage')) {
                   $data=$_POST;
@@ -1474,7 +1576,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function insert_subcategory()
 	{
              $config['upload_path']   = './uploads/subcategory/';
-             $config['allowed_types'] = 'gif|jpg|jpeg|png';
+             $config['allowed_types'] = 'gif|jpg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('subCategoryImage')) {
                   $data=array(
@@ -1549,7 +1651,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function update_category($categoryID)
 	{
              $config['upload_path']   = './uploads/category/';
-             $config['allowed_types'] = 'gif|jpg|jpeg|png';
+             $config['allowed_types'] = 'gif|jpg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('categoryImage')) {
                   $data=array(
@@ -1581,7 +1683,7 @@ for($i= 0; $i < $count_array_course; $i++)
 	public function update_subcategory($subcategoryID)
 	{
            $config['upload_path']   = './uploads/subcategory/';
-             $config['allowed_types'] = 'gif|jpg|jpeg|png';
+             $config['allowed_types'] = 'gif|jpg|png';
          $this->load->library('upload', $config);
          if ( ! $this->upload->do_upload('subCategoryImage')) {
                   $data=array(
@@ -1834,10 +1936,10 @@ function updatemultitrainer(){
 
 		if (!empty($_FILES['profile_image']['name'])) {
 			$config['upload_path']          = 'uploads/userimage/';
-			$config['allowed_types']        = 'gif|jpg|jpeg|png';
+			$config['allowed_types']        = 'gif|jpg|png';
 			$config['max_size']             = 200000;
-			$config['max_width']            = 41024;
-			$config['max_height']           = 4768;
+			$config['max_width']            = 1024;
+			$config['max_height']           = 768;
 			$this->load->library('upload', $config);
 			// put input field name below condition === Here name is profile_image
 			 if (!$this->upload->do_upload('profile_image'))

@@ -31,9 +31,8 @@
                                             <table id="dataTableExample2" class="table table-bordered table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>S No.</th>
                                                         
-                                                        <th>StudentID</th>
+                                                        
                                                         <th>Name</th>
                                                         <th>Fees</th>
                                                         <th>Month of Fees</th>
@@ -42,6 +41,7 @@
                                                         <th>Submitted Fee</th>
                                                         <th>Discount</th>
                                                         <th>Total</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
 
                                                     </tr>
@@ -53,17 +53,30 @@
             foreach ($fees as $fee): ?>
 
 						<tr>
-                    <td><?php echo $fee['feeID'] ?></td>
+                    
 
-                    <td><?php echo $fee['studentID'] ?></td>
                     <td><?php echo $fee['student_name'] ?></td>
-                    <td><?php echo $fee['student_fee'] ?></td>
-                    <td><?php echo $fee['fee_month'] ?></td>
+                    <td><?php echo $fee['monthly_fee'] ?></td>
+                    <td>
+                    <?php 
+                         $result = explode('-', $fee['date']);
+                         $monthNum = $result[1];
+                         $monthName = date("F", mktime(0, 0, 0, $monthNum, 10));
+                  
+                                            
+
+                        ?>
+                        <?php echo $monthName ?></td>
                     <td><?php echo $fee['submission_date'] ?></td>
                     <td><?php echo $fee['installment'] ?></td>
                     <td><?php echo $fee['submit_amount'] ?></td>
                     <td><?php echo $fee['discount_current'] ?></td>
                     <td><?php echo $fee['total']+$fee['previous_installment'] ?></td>
+                    <td><?php echo $fee['payment_status'] ?></td>
+
+
+
+
                     <td> <a href="<?php echo base_url() ?>admin/create_fee_voucher/<?php echo $fee['feeID'] ?>" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
                     <a href="<?php echo base_url() ?>admin/delete/student_fee/feeID/<?php echo $fee['feeID'] ?>"><img src="<?php echo base_url() ?>assets/assets/dist/img/d-icon.png" title="Delete" alt="Delete" width="35" height="35"></a></td>
                      
@@ -80,10 +93,9 @@
                            <td></td>
                            <td></td>
                            <td></td>
-                           <td></td>
                            <td>Grand Total :</td>
-                           <td><strong></td>
                            <td><strong><?php echo number_format($submit_total); ?></strong></td>
+                           <td></td>
                            <td></td>
                            <td></td>
                            <td></td>
